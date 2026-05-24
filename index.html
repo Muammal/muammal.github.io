@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ==========================================
+       CUSTOMIZE: Page Browser Title & SEO Meta
+       ========================================== -->
+  <title>Muammal | Data Scientist Portfolio</title>
+  <meta name="description"
+    content="Muammal A. Fadhil is a Data Scientist specializing in data-driven AI, robotics, and large language models (LLMs), focused on building intelligent systems that turn data into real-world innovation.">
+
+  <!-- Google Fonts: Outfit (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome CDN for Sleek Vector Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- BACKGROUND INTERACTIVE DOT GRID CANVAS -->
+  <canvas id="cursor-dots"></canvas>
+
+  <!-- DYNAMIC TOP PROGRESS BAR (Fills as you scroll) -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ==========================================
+       1. NAVIGATION HEADER SECTION
+       ========================================== -->
+  <header class="navbar" id="mainNavbar">
+    <div class="container nav-container">
+
+      <!-- CUSTOMIZE: Desktop Nav Items -->
+      <nav class="nav-menu">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
+        <a href="#services" class="nav-link">Services</a>
+      </nav>
+
+      <!-- Nav Action buttons -->
+      <div class="nav-actions">
+        <!-- Interactive hamburger menu for tablet/mobile screens -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================
+       1A. RESPONSIVE MOBILE SIDE NAVIGATION OVERLAY
+       ========================================== -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-menu">
+      <a href="#home" class="mobile-link">Home</a>
+      <a href="#about" class="mobile-link">About Me</a>
+      <a href="#portfolio" class="mobile-link">Portfolio</a>
+      <a href="#experience" class="mobile-link">Experience</a>
+      <a href="#certifications" class="mobile-link">Certifications</a>
+      <a href="#services" class="mobile-link">Services</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+
+    <!-- CUSTOMIZE: Socials inside Mobile Overlay -->
+    <div class="mobile-socials">
+      <!-- Hugging Face Profile -->
+      <a href="https://huggingface.co/Castial" class="mobile-social-icon" aria-label="Hugging Face Profile">
+        <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+          <path
+            d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.01 1.7a6.3 6.3 0 1 1 0 12.6A6.3 6.3 0 0 1 8.01 1.7zm-3.01 4.8a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zm6 0a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zm-3 4.7c-1.3 0-2.4-.8-2.8-1.9h5.6c-.4 1.1-1.5 1.9-2.8 1.9zm-4.5.8c.5.8 1.2 1.3 2 1.5l-.3 1c-1-.3-1.8-1-2.4-1.9l.7-.6zm9 0c-.5.8-1.2 1.3-2 1.5l.3 1c1-.3 1.8-1 2.4-1.9l-.7-.6z" />
+        </svg>
+      </a>
+      <!-- Kaggle Profile -->
+      <a href="https://www.kaggle.com/castial" class="mobile-social-icon" aria-label="Kaggle Profile"><i
+          class="fab fa-kaggle"></i></a>
+      <a href="https://www.instagram.com/cas._.tial" class="mobile-social-icon" aria-label="Instagram Profile"><i
+          class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/muammal-a-fadhil-54a1b8233/" class="mobile-social-icon"
+        aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/Muammal" class="mobile-social-icon" aria-label="GitHub Profile"><i
+          class="fab fa-github"></i></a>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       2. HERO LANDING SECTION
+       ========================================== -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- HERO LEFT PANEL (Intro headlines) -->
+        <div class="hero-left">
+          <div class="hero-accent-line"></div>
+
+          <!-- CUSTOMIZE: Edit main headline statement below -->
+          <h1 class="hero-title">
+            <span>Muammal A. Fadhil</span>
+          </h1>
+
+          <h1 class="hero-subtitle">
+            <span>Data Scientist</span>
+          </h1>
+
+          <h1 class="hero-subtitle">
+            <span>ML Developer</span>
+          </h1>
+
+          <!-- CUSTOMIZE: Brief tagline description -->
+          <p class="hero-description">
+            I’m a Data Scientist and Bachelor’s student in Artificial Intelligence and Robotics,
+            driven by a curiosity of how machines learn, reason, and occasionally surprise us.
+            I enjoy working at the intersection of theory and application,
+            where math meets code and ideas turn into systems that actually work.
+          </p>
+
+          <!-- Interactive bouncy down button that anchors to the About Section -->
+          <a href="#about" class="scroll-btn" id="heroScrollBtn" aria-label="Scroll down to About Section">
+            <i class="fas fa-chevron-down"></i>
+          </a>
+        </div>
+
+        <!-- HERO CENTER PANEL (Main Developer Profile Picture) -->
+        <div class="hero-center">
+          <div class="profile-wrapper">
+            <!-- Pulsing color bloom backdrop behind image -->
+            <div class="profile-glow"></div>
+
+            <!-- Main visual container -->
+            <div class="profile-image-container">
+              <!-- CUSTOMIZE: Path to your developer headshot/cut-out -->
+              <img src="assets/developer_portrait.jpg" alt="Developer portrait headshot of Muammal" class="profile-img"
+                id="profilePortrait">
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO RIGHT PANEL (Sidebar Navigation Widgets) -->
+        <div class="hero-right">
+
+          <!-- CUSTOMIZE: About Me mini widget -->
+          <div class="hero-widget">
+            <h2 class="widget-label">About Me</h2>
+            <p class="widget-text">
+              I'm Muammal, A Typical 19 Year old interested in making change.
+              I Love Reading / Gaming / Networking.
+            </p>
+            <a href="#about" class="widget-link">LEARN MORE <i class="fas fa-arrow-right-long"></i></a>
+          </div>
+
+          <!-- CUSTOMIZE: My Work/Portfolio mini widget -->
+          <div class="hero-widget">
+            <h2 class="widget-label">My Work</h2>
+            <p class="widget-text">
+              I seek to make data a language everyone can understand through simplicity,
+              clarity, and intelligent design. building accessible AI systems that empower people,
+              solve real-world problems, and bring advanced technology closer to everyday life.
+            </p>
+            <a href="#portfolio" class="widget-link">BROWSE PORTFOLIO <i class="fas fa-arrow-right-long"></i></a>
+          </div>
+
+          <!-- CUSTOMIZE: Social Profiles mini widget (social platform URLs) -->
+          <div class="hero-widget">
+            <h2 class="widget-label">Follow Me</h2>
+            <div class="social-icons-row">
+              <!-- Hugging Face Profile -->
+              <a href="https://huggingface.co/Castial" class="social-circle-link" aria-label="Hugging Face Profile">
+                <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+                  <path
+                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.01 1.7a6.3 6.3 0 1 1 0 12.6A6.3 6.3 0 0 1 8.01 1.7zm-3.01 4.8a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zm6 0a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zm-3 4.7c-1.3 0-2.4-.8-2.8-1.9h5.6c-.4 1.1-1.5 1.9-2.8 1.9zm-4.5.8c.5.8 1.2 1.3 2 1.5l-.3 1c-1-.3-1.8-1-2.4-1.9l.7-.6zm9 0c-.5.8-1.2 1.3-2 1.5l.3 1c1-.3 1.8-1 2.4-1.9l-.7-.6z" />
+                </svg>
+              </a>
+              <!-- Kaggle Profile -->
+              <a href="https://www.kaggle.com/castial" class="social-circle-link" aria-label="Kaggle Profile"><i
+                  class="fab fa-kaggle"></i></a>
+              <a href="https://www.instagram.com/cas._.tial" class="social-circle-link" aria-label="Instagram Link"><i
+                  class="fab fa-instagram"></i></a>
+              <a href="https://www.linkedin.com/in/muammal-a-fadhil-54a1b8233/" class="social-circle-link"
+                aria-label="LinkedIn Link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://github.com/Muammal" class="social-circle-link" aria-label="GitHub Link"><i
+                  class="fab fa-github"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       3. ABOUT & STATS COUNTERS SECTION
+       ========================================== -->
+  <section class="about-section" id="about">
+    <div class="container">
+
+      <!-- Slash accent indicator styled in CSS -->
+      <div class="section-tag">About Me</div>
+
+      <div class="about-grid">
+
+        <!-- Left large intro paragraph -->
+        <!-- CUSTOMIZE: Modify about headline and stats text below -->
+        <h2 class="about-headline">
+          I've been working on LLM powered Projects in Agentic AI, and translating Raw Data into Stories with Machine
+          Learning.
+        </h2>
+
+        <!-- Right side details & counting numbers -->
+        <div class="about-details">
+          <p class="about-paragraph">
+            Focused on building intelligent AI systems, scalable robotics solutions,
+            and accessible LLM applications, transforming complex data into simple,
+            impactful experiences that solve real-world problems.
+          </p>
+
+          <!-- Stats count grid (Fires tick-up script when user scrolls into view) -->
+          <!-- CUSTOMIZE: Set data-target to the final number you want to count up to -->
+          <div class="stats-grid">
+
+            <div class="stat-card">
+              <div class="stat-number" data-target="2">0</div>
+              <div class="stat-label">Years of Experience</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-number" data-target="5">0</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       4. PORTFOLIO SHOWCASE SECTION
+       ========================================== -->
+  <section class="portfolio-section" id="portfolio">
+    <div class="container">
+
+      <div class="section-tag">Portfolio</div>
+
+      <div class="portfolio-header">
+        <!-- CUSTOMIZE: Portfolio Section Tagline -->
+        <h2 class="portfolio-headline">
+          Selected projects crafted with precision, focus, and modern engineering standards.
+        </h2>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <!-- CUSTOMIZE: Add or remove project cards below. Simply copy a 'project-card' div. -->
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-img-wrapper">
+            <span class="project-badge">Web Application</span>
+            <img src="assets/nabu_showcase.png" alt="Nabu Bookstore Platform Mockup" class="project-img">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Nabu Bookstore Platform</h3>
+            <p class="project-desc">
+              Nabu is an AI-powered bookstore platform that uses large language models (LLMs) and intelligent
+              recommendation systems to help users discover books,
+              explore personalized reading experiences, and find nearby bookstores through smart, data-driven search.
+            </p>
+            <div class="project-meta">
+              <div class="project-tags">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-img-wrapper">
+            <span class="project-badge">Large Language Model</span>
+            <img src="assets/AIMO_showcase.png" alt="AIMO3" class="project-img">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">AI Mathematics Olympiads 3rd Edition</h3>
+            <p class="project-desc">
+              A mathematics-specialized reasoning model built on top of OpenAI GPT-OSS-20B and
+              fine-tuned on approximately 200,000 high-quality mathematical reasoning samples focused on
+              olympiad-style and AIMO-style problem solving
+            </p>
+            <div class="project-meta">
+              <div class="project-tags">
+                <span class="project-tag">Python</span>
+                <span class="project-tag">Transformers</span>
+                <span class="project-tag">Unsloth</span>
+                <span class="project-tag">Pytorch</span>
+                <span class="project-tag">PEFT and LoRa Configs</span>
+              </div>
+              <a href="https://huggingface.co/Castial/gpt-oss-20b-aimo-bnb-bf16" class="project-link">View Project <i
+                  class="fas fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       4A. WORK EXPERIENCE SECTION
+       ========================================== -->
+  <section class="experience-section" id="experience">
+    <div class="container">
+      <div class="section-tag">Experience</div>
+      <h2 class="about-headline" style="max-width: 600px; margin-bottom: 40px;">
+        The Beginning of my Journey in AI.
+      </h2>
+
+      <div class="experience-list">
+
+        <!-- Experience 1 (First Child - Left Align Image / Details on Right) -->
+        <div class="experience-row">
+          <div class="experience-img-col">
+            <div class="profile-wrapper experience-portrait">
+              <!-- Pulsing color bloom backdrop behind the showcase image (cyan glow) -->
+              <div class="profile-glow" style="background: #06b6d4;"></div>
+
+              <!-- Main visual container matching the profile picture border -->
+              <div class="profile-image-container">
+                <img src="assets/aidevfest.jpg" alt="aidevfest image" class="profile-img">
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-details-col">
+            <h3 class="experience-role">Founder | Executive Director</h3>
+            <div class="experience-company-time">
+              AI Developers Festival <span></span> <span class="timeframe">2026 - Present</span>
+            </div>
+            <p class="experience-desc-text">
+              AI DevFest is a community-driven event that brings together developers, researchers, and students
+              to explore the latest advancements in artificial intelligence. It typically features talks,
+              workshops, and hands-on sessions covering topics like machine learning, generative AI, and
+              real-world AI applications, with the goal of sharing knowledge, building skills,
+              and connecting people working in the AI ecosystem.
+            </p>
+            <div class="experience-bullets">
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Leading the strategic vision and execution of AI DevFest.</span>
+              </div>
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Overseeing program design, scientific workshops, and cross-functional teams to deliver a
+                  high-impact, community-driven artificial intelligence event.</span>
+              </div>
+            </div>
+            <div class="experience-tech">
+              <span class="experience-tech-badge">Networking</span>
+              <span class="experience-tech-badge">Tech Leadership</span>
+              <span class="experience-tech-badge">Community Development</span>
+              <span class="experience-tech-badge">Technical Training</span>
+              <span class="experience-tech-badge">Event Management</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 2 (Second Child - Right Align Image / Details on Left via CSS alternating rule) -->
+        <div class="experience-row">
+          <div class="experience-img-col">
+            <div class="profile-wrapper experience-portrait">
+              <!-- Pulsing color bloom backdrop behind the showcase image (purple glow) -->
+              <div class="profile-glow" style="background: #a855f7;"></div>
+
+              <!-- Main visual container matching the profile picture border -->
+              <div class="profile-image-container">
+                <img src="assets/fintech.jpg" alt="fintech image" class="profile-img">
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-details-col">
+            <h3 class="experience-role">Machine Learning Developer</h3>
+            <div class="experience-company-time">
+              Fintech Hackathon by Makers | Zain Iraq <span></span> <span class="timeframe">October 2025</span>
+            </div>
+            <p class="experience-desc-text">
+              At Fintech Hackathon, I worked on building Nabu, an AI-powered bookstore platform that uses LLM-based
+              recommendations to help users discover books and nearby bookstores in a more personalized and intelligent
+              way. The project focused on combining financial and user-behavior insights with AI-driven discovery to
+              create a seamless browsing experience.
+            </p>
+            <div class="experience-bullets">
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Developed LLM recommendation systems</span>
+              </div>
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Secured 3rd place in the Hackathon</span>
+              </div>
+            </div>
+            <div class="experience-tech">
+              <span class="experience-tech-badge">Pytorch</span>
+              <span class="experience-tech-badge">Hugging Face Inference</span>
+              <span class="experience-tech-badge">Transformers</span>
+              <span class="experience-tech-badge">Quantizers</span>
+              <span class="experience-tech-badge">Qwen</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 3 (Fourth Child - Right Align Image / Details on Left via CSS alternating rule) -->
+        <div class="experience-row">
+          <div class="experience-img-col">
+            <div class="profile-wrapper experience-portrait">
+              <!-- Pulsing color bloom backdrop behind the showcase image (purple glow) -->
+              <div class="profile-glow" style="background: #a855f7;"></div>
+
+              <!-- Main visual container matching the profile picture border -->
+              <div class="profile-image-container">
+                <img src="assets/GEW.jpg" alt="GEW image" class="profile-img">
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-details-col">
+            <h3 class="experience-role">Machine Learning Developer</h3>
+            <div class="experience-company-time">
+              GEW AI Hackathon by Makers | Zain Iraq <span></span> <span class="timeframe">November 2025</span>
+            </div>
+            <p class="experience-desc-text">
+              At the GEW AI Hackathon, I participated with a project called Flow.ai, an AI gateway designed to simplify
+              LLM and AI integration for developers and businesses.
+              The platform provides unified, easy-to-use API access to multiple AI models, enabling faster and more
+              scalable B2B implementation without dealing with complex infrastructure or model-specific setups.
+              The project focused on making AI adoption more accessible for companies by acting as a
+              middleware layer between applications and large language models, streamlining deployment
+              and experimentation in real-world products.
+            </p>
+            <div class="experience-bullets">
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Worked on LLM Inference Functions through FastAPI and Transformers Module</span>
+              </div>
+
+            </div>
+            <div class="experience-tech">
+              <span class="experience-tech-badge">Pytorch</span>
+              <span class="experience-tech-badge">Hugging Face Inference</span>
+              <span class="experience-tech-badge">Transformers</span>
+              <span class="experience-tech-badge">Quantizers</span>
+              <span class="experience-tech-badge">Ollama | Qwen | Gpt-oss</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 4 (Second Child - Right Align Image / Details on Left via CSS alternating rule) -->
+        <div class="experience-row">
+          <div class="experience-img-col">
+            <div class="profile-wrapper experience-portrait">
+              <!-- Pulsing color bloom backdrop behind the showcase image (purple glow) -->
+              <div class="profile-glow" style="background: #a855f7;"></div>
+
+              <!-- Main visual container matching the profile picture border -->
+              <div class="profile-image-container">
+                <img src="assets/superhackathon.jpg" alt="superhackathon image" class="profile-img">
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-details-col">
+            <h3 class="experience-role">Python Developer</h3>
+            <div class="experience-company-time">
+              Super Hackathon by SuperNova | Deptartment of Scientific Affairs <span></span> <span
+                class="timeframe">April 2025</span>
+            </div>
+            <p class="experience-desc-text">
+              SuperHackathon is a competitive programming-focused hackathon centered around problem solving,
+              algorithmic thinking, and LeetCode-style challenges. Participants are tested on their ability to
+              design efficient solutions under time constraints, tackling problems that span data structures,
+              algorithms,
+              and logical reasoning. The event emphasizes speed, accuracy,
+              and clean implementation, simulating real technical interview and coding competition environments.
+            </p>
+            <div class="experience-bullets">
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Secured the 2nd Place</span>
+              </div>
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Solved about 8 to 10 Leetcode Problems in 3 to 4 Hours</span>
+              </div>
+            </div>
+            <div class="experience-tech">
+              <span class="experience-tech-badge">Python</span>
+              <span class="experience-tech-badge">Problem Solving</span>
+              <span class="experience-tech-badge">Leetcode</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 5 (Third Child - Left Align Image / Details on Right) -->
+        <div class="experience-row">
+          <div class="experience-img-col">
+            <div class="profile-wrapper experience-portrait">
+              <!-- Pulsing color bloom backdrop behind the showcase image (blue glow) -->
+              <div class="profile-glow" style="background: #0d63f8;"></div>
+
+              <!-- Main visual container matching the profile picture border -->
+              <div class="profile-image-container">
+                <img src="assets/acceleration.jpg" alt="acceleration image" class="profile-img">
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-details-col">
+            <h3 class="experience-role">Founder</h3>
+            <div class="experience-company-time">
+              Acceleration <span></span> <span class="timeframe">2024 - 2025</span>
+            </div>
+            <p class="experience-desc-text">
+              An innovative Volunteer Team in Iraq, advancing AI software and tech education while aiming to integrate
+              highly advanced technologies for local and global growth opportunities.
+            </p>
+            <div class="experience-bullets">
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Spearheaded AI educational content creation and tech literacy programs in Iraq.</span>
+              </div>
+              <div class="experience-bullet-item">
+                <i class="fas fa-circle-check"></i>
+                <span>Built relationships and fostered developer ecosystems, organizing coding groups and leadership
+                  workshops.</span>
+              </div>
+            </div>
+            <div class="experience-tech">
+              <span class="experience-tech-badge">AI Research and Writing</span>
+              <span class="experience-tech-badge">Content Creation</span>
+              <span class="experience-tech-badge">Networking</span>
+              <span class="experience-tech-badge">Community Development</span>
+              <span class="experience-tech-badge">Team Leadership</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       4B. CERTIFICATIONS SECTION
+       ========================================== -->
+  <section class="certifications-section" id="certifications">
+    <div class="container">
+      <div class="section-tag">Certifications</div>
+      <h2 class="about-headline" style="max-width: 600px; margin-bottom: 40px;">
+        Professional Credentials & Badges.
+      </h2>
+
+      <div class="certifications-grid">
+
+        <!-- Certificate 1 -->
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="assets/datacamp1.jpg" alt="Supervised Learning with scikit-learn" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-title">Supervised Learning with scikit-learn</h3>
+            <p class="cert-org">DataCamp</p>
+          </div>
+        </div>
+
+        <!-- Certificate 2 -->
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="assets/IBM.png" alt="IBM Image" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-title">Machine Learning With Python</h3>
+            <p class="cert-org">IBM</p>
+          </div>
+        </div>
+
+        <!-- Certificate 3 -->
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="assets/Million.png" alt="Million Image" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-title">One Million Jordanian Coders (Data Analysis Track)</h3>
+            <p class="cert-org">Udacity & Jordanian Government</p>
+          </div>
+        </div>
+
+        <!-- Certificate 4 -->
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="assets/AiDojo.png" alt="Ai Dojo Image" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-title">Python Mastering Course</h3>
+            <p class="cert-org">Ai Dojo</p>
+          </div>
+        </div>
+
+        <!-- Certificate 5 -->
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="assets/Elements.jpg" alt="Elements Image" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-title">Elements of AI</h3>
+            <p class="cert-org">University of Helsinki & MinnaLearn</p>
+          </div>
+        </div>
+
+        <!-- Certificate 6 -->
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="assets/TED.png" alt="TED Image" class="cert-img">
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-title">The Experiment Digital</h3>
+            <p class="cert-org">World Learning & U.S. Department of State</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       5. SERVICES SECTION (Core Competencies)
+       ========================================== -->
+  <section class="services-section" id="services">
+    <div class="container">
+
+      <div class="section-tag">What I Do</div>
+
+      <h2 class="about-headline" style="max-width: 600px;">
+        Building intelligent models and architectures that unlock value.
+      </h2>
+
+      <!-- Services List -->
+      <!-- CUSTOMIZE: Update icons and descriptions below -->
+      <div class="services-grid">
+
+        <!-- Service Card 1 -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-brain"></i></div>
+          <h3 class="service-title">Machine Learning & Deep Learning</h3>
+          <p class="service-desc">
+            Designing and implementing robust machine learning pipelines, deep neural networks, and specialized
+            supervised learning solutions to translate raw dataset signals into accurate predictive insights.
+          </p>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-robot"></i></div>
+          <h3 class="service-title">Large Language Models & Agentic AI</h3>
+          <p class="service-desc">
+            Fine-tuning open-source LLMs (PEFT, LoRA, Unsloth) and engineering autonomous multi-agent reasoning chains
+            and gateways that simplify intelligent AI adoption for businesses.
+          </p>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+          <h3 class="service-title">Data Science & Analytics Engineering</h3>
+          <p class="service-desc">
+            Conducting end-to-end data analysis, custom statistical modelling, feature engineering, and metrics parsing
+            to convert complex, unstructured records into stories and systems that work.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       6. CONTACT SECTION (Interactive Glassmorphic Form)
+       ========================================== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Contact Information Block -->
+        <div class="contact-info">
+          <div class="section-tag">Contact</div>
+          <h2 class="contact-headline">Let's build something exceptional together.</h2>
+          <p class="contact-desc">
+            Looking for a Machine Learning Developer to build custom AI models, architect agentic pipelines, or collaborate on data-driven innovation? Feel free to reach out!
+          </p>
+
+          <!-- CUSTOMIZE: Update contact particulars below -->
+          <div class="contact-details-list">
+
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <div class="contact-label">Email Me</div>
+                <a href="mailto:Cas.dropmail@gmail.com" class="contact-value">cas.dropmail@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-phone"></i></div>
+              <div>
+                <div class="contact-label">Call Me</div>
+                <a href="tel:+1234567890" class="contact-value">+964 772 566 3587</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-location-dot"></i></div>
+              <div>
+                <div class="contact-label">Location</div>
+                <div class="contact-value">Baghdad, Iraq</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Contact Interactive Form -->
+        <div>
+          <!-- Dynamic notifications banner for submission feedback -->
+          <div class="form-message" id="formMessage"></div>
+
+          <form class="contact-form" id="portfolioContactForm">
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="clientName">Name</label>
+                <input type="text" id="clientName" class="form-input" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <label for="clientEmail">Email</label>
+                <input type="email" id="clientEmail" class="form-input" placeholder="hello@domain.com" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="clientSubject">Subject</label>
+              <input type="text" id="clientSubject" class="form-input" placeholder="Project Inquiry" required>
+            </div>
+
+            <div class="form-group">
+              <label for="clientMessage">Message</label>
+              <textarea id="clientMessage" class="form-textarea"
+                placeholder="Describe your project, timeline, or inquiries..." required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              Send Message <i class="fas fa-paper-plane"></i>
+            </button>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       7. FOOTER SECTION
+       ========================================== -->
+  <footer class="footer">
+    <div class="container footer-container">
+
+      <!-- CUSTOMIZE: Footer Copyright Text -->
+      <div class="footer-copyright" id="footerCopyright">
+        &copy; 2026 Muammal A. Fadhil, Best Developer There Is.
+      </div>
+
+      <div class="footer-links">
+        <a href="#home" class="footer-link">Home</a>
+        <a href="#about" class="footer-link">About</a>
+        <a href="#portfolio" class="footer-link">Portfolio</a>
+        <a href="#contact" class="footer-link">Contact</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Link interaction scripts -->
+  <script src="script.js"></script>
+</body>
+
+</html>
