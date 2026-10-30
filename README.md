@@ -1,124 +1,154 @@
 # Muammal A. Fadhil — Engineering Portfolio
 
-A high-end, monochrome glass digital experience combining minimalist design, luminous animated typography, living light atmospheric depth, click-activated project lightboxes, and a full-stack Python/FastAPI backend with Argon2id authentication.
+[![Live Site](https://img.shields.io/badge/Live_Site-muammal.github.io-00f0ff?style=for-the-badge&logo=githubpages&logoColor=black)](https://muammal.github.io/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![GSAP](https://img.shields.io/badge/Motion-GSAP_3.12-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://gsap.com/)
+[![Security](https://img.shields.io/badge/Auth-Argon2id-critical?style=for-the-badge)](https://www.argon2.com/)
+
+> A high-end engineering portfolio and dynamic content management system featuring a monochrome glass aesthetic, organic living light depth, GSAP kinetic typography, an interactive image lightbox, and an asynchronous Python/FastAPI backend with Argon2id cryptographic security and automated Pillow WebP optimization.
+
+🌐 **Production Website**: [https://muammal.github.io](https://muammal.github.io)
 
 ---
 
 ## 🌟 Key Architecture & Capabilities
 
 ### 1. Visual & Motion System: Monochrome Glass + Living Light
-- **Monochrome Glass Aesthetic**: Deep `#080808` canvas, crisp typography, and frosted glass panels with `backdrop-filter: blur(20px)` and subtle border highlights.
-- **Living Light Depth**: Organic drifting cyan (`rgba(6, 182, 212)`) and violet (`rgba(168, 85, 247)`) ambient lighting fields with floating glass and geometric elements.
-- **Luminous Typography**: GSAP-driven headline reveals with shimmering gradient sweeps and ScrollTrigger word illumination.
-- **Dual-Theme Engine**: Dark and light themes with pre-paint theme bootstrap to prevent flash of wrong theme (FOUT) and persistent storage in `localStorage`.
+- **Monochrome Glass Aesthetic**: Deep `#080808` canvas, high-legibility typography, and frosted glass cards featuring `backdrop-filter: blur(20px)` and subtle luminescence.
+- **Living Light Depth**: Organic drifting cyan (`rgba(6, 182, 212)`) and violet (`rgba(168, 85, 247)`) ambient lighting fields with interactive cursor spotlights.
+- **GSAP Kinetic Typography**: Staggered headline entrance animations, shimmering gradient sweeps, and ScrollTrigger-driven word scrub illumination.
+- **Accessibility & Motion Preference**: Automatic detection of `prefers-reduced-motion` with graceful static fallbacks and full ARIA navigation support.
 
-### 2. Interactive Project Image Lightbox
-- **Strict User-Activated Lightbox**: Images **never** open on scroll or viewport entry. Opening an enlarged view strictly requires an explicit click or keyboard activation.
-- **Full Gallery Navigation**: Previous (`←`) and Next (`→`) navigation, Escape key handler, backdrop click dismissal, focus trap, and automatic focus restoration to the clicked trigger.
+### 2. Interactive Media Lightbox
+- **Strict User-Activated Lightbox**: High-resolution image inspection activated strictly by click or keyboard interaction (never triggering automatically on scroll).
+- **Accessible Gallery Controls**: Next/Previous arrows, Escape key dismissal, outside click closing, focus trapping, and automatic focus restoration to the trigger element.
 
-### 3. Full-Stack Backend & Secure Authentication
-- **FastAPI + Uvicorn + SQLite Architecture**: Fast, production-ready, asynchronous Python backend.
-- **Argon2id Password Hashing**: Industry gold standard (`argon2-cffi`) with custom memory and parallelism parameters.
-- **Sliding-Window Rate Limiting**: Automatic IP-based throttling (maximum 5 failed attempts per 5 minutes) returning HTTP `429 Too Many Requests`.
-- **Protected Administrator CMS**: Secure `/login` and `/dashboard` allowing real-time edits to project titles, descriptions, visibility status, and destination links.
-- **Dual Session Support**: Supports both `HttpOnly` `SameSite=Lax` cookies and `Authorization: Bearer <token>` headers, enabling cross-origin API calls when the frontend is decoupled on GitHub Pages.
+### 3. Full-Stack Backend & CMS Engine
+- **FastAPI + SQLite Architecture**: High-throughput asynchronous backend providing public content APIs and secure CMS management.
+- **Direct Picture Submission & WebP Pipeline**: Directly upload images (`.png`, `.jpg`, `.jpeg`, `.webp`, `.svg`, `.gif`) through the dashboard. The backend utilizes Pillow to normalize EXIF orientation, constrain oversized dimensions, and convert raster images into lightweight, modern **WebP** assets.
+- **Dynamic Content Management**: Live editing for Profile/Bio, Career Milestones, Technical Toolkit, Credentials/Certifications, and Featured Projects.
+- **Argon2id Authentication**: Cryptographic security using the industry gold standard (`argon2-cffi`) with elevated memory and iteration cost parameters.
+- **Sliding-Window Rate Limiting**: IP-based throttling (maximum 5 attempts per 5-minute window) defending against automated brute-force attempts.
 
 ---
 
 ## 🚀 Quick Start & Local Development
 
-### 1. Prerequisites
-- Python 3.10+
-- Dependencies: `fastapi`, `uvicorn`, `argon2-cffi`, `pydantic`
+### 1. Installation
+Clone the repository and install dependencies:
+```bash
+git clone https://github.com/Muammal/muammal.github.io.git
+cd muammal.github.io
+pip install -r requirements.txt
+```
 
 ### 2. Provision Administrator Account
-Create the initial administrator account securely via the CLI (no public registration exposed):
+Create your admin user securely via the command line (no public registration endpoint):
 ```bash
-python server/cli.py create-admin --username admin --password "YourStrongPassword123!"
+python server/cli.py create-admin --username CAS --password "YourStrongPassword123!"
 ```
 
 To list users or reset credentials:
 ```bash
 python server/cli.py list-users
-python server/cli.py reset-password --username admin --password "NewPassword123!"
+python server/cli.py reset-password --username CAS --password "NewPassword123!"
 ```
 
-### 3. Launch the Unified Server
-Run the FastAPI application which serves both the API endpoints (`/api/*`) and the static frontend:
+### 3. Launch Local Server
+Start the unified FastAPI server which serves both the API endpoints and the frontend:
 ```bash
-python -m uvicorn server.main:app --host 127.0.0.1 --port 8000
+python -m uvicorn server.main:app --host 127.0.0.1 --port 8000 --reload
 ```
-Then visit:
-- **Public Portfolio**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+Once running locally, access:
+- **Local Portfolio**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 - **Admin Login**: [http://127.0.0.1:8000/login/](http://127.0.0.1:8000/login/)
 - **Admin Dashboard**: [http://127.0.0.1:8000/dashboard/](http://127.0.0.1:8000/dashboard/)
-- **API Documentation**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **Interactive OpenAPI Docs**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 ---
 
-## ☁️ Deployment Architecture
+## ☁️ Production Deployment Architecture
 
-### A. Frontend on GitHub Pages (`github.io`)
-GitHub Pages is a static file host. The portfolio is pre-configured for automated deployment:
-1. **Automated GitHub Action**: `.github/workflows/deploy.yml` runs on push to `main` or `master`.
-2. **SPA Routing Fallback**: `404.html` automatically routes direct visits to `/login` or `/dashboard` to the appropriate static files.
-3. **Decoupled API Configuration**:
-   - In `api-config.js`, configure `API_CONFIG.BASE_URL` to point to your hosted backend (e.g., `https://api.yourdomain.com`).
-   - Or set `window.PORTFOLIO_API_URL = "https://api.yourdomain.com"` in `index.html`.
+```
+                                  ┌────────────────────────┐
+                                  │   GitHub Pages (CDN)   │
+                                  │ https://muammal.github.io
+                                  └───────────┬────────────┘
+                                              │
+                      ┌───────────────────────┴───────────────────────┐
+                      │                                               │
+             [Static Fallback Mode]                         [Decoupled API Mode]
+       Instant pre-rendered UI and assets             Fetches live updates from hosted
+       (Works 100% offline without backend)          FastAPI backend via api-config.js
+                                                                      │
+                                                        ┌─────────────┴─────────────┐
+                                                        │   Cloud Python Backend    │
+                                                        │  (Render / Railway / VPS) │
+                                                        └───────────────────────────┘
+```
 
-### B. Backend on Railway, Render, Fly.io, or VPS
-Deploy the `server/` directory to any Python-capable backend host:
-- **Build Command**: `pip install -r requirements.txt` (or `pip install fastapi uvicorn argon2-cffi pydantic`)
-- **Start Command**: `uvicorn server.main:app --host 0.0.0.0 --port $PORT`
-- **Environment Variables**:
-  ```env
-  ENVIRONMENT=production
-  DATABASE_PATH=server/portfolio.db
-  ALLOWED_ORIGINS=https://muammal.github.io,https://yourdomain.com
-  ```
+### A. Static Deployment on GitHub Pages (`muammal.github.io`)
+GitHub Pages automatically serves the root repository as a static website:
+1. **Automated CI/CD**: Pushing to `main` triggers `.github/workflows/deploy.yml` for instant deployment.
+2. **SPA Routing**: `404.html` transparently redirects `/login` or `/dashboard` requests to their static counterparts.
+3. **Resilient Static Fallback**: All portfolio sections, GSAP animations, and case studies are fully functional even when the Python backend is offline.
 
-### C. Custom Domain DNS Setup
-If pointing your custom domain (e.g. `yourdomain.com`):
-1. **Apex Domain (`@`)**: Add 4 DNS `A` records pointing to GitHub Pages servers:
-   - `185.199.108.153`
-   - `185.199.109.153`
-   - `185.199.110.153`
-   - `185.199.111.153`
-2. **Subdomain (`www`)**: Add a `CNAME` record pointing to `<your-username>.github.io`.
-3. **API Subdomain (`api.yourdomain.com`)**: Add a `CNAME` pointing to your backend host (e.g. `your-app.up.railway.app` or `your-app.onrender.com`).
-4. **CORS Allowlist**: Add your custom domain to `ALLOWED_ORIGINS` in your backend environment variables.
+### B. Cloud Backend Deployment (Optional)
+To host the administrative CMS and live API online:
+1. Deploy the `server/` folder to any Python platform (Render, Railway, Fly.io, or VPS).
+2. Set build command: `pip install -r requirements.txt`
+3. Set start command: `uvicorn server.main:app --host 0.0.0.0 --port $PORT`
+4. Set environment variables:
+   ```env
+   ENVIRONMENT=production
+   DATABASE_PATH=server/portfolio.db
+   ALLOWED_ORIGINS=https://muammal.github.io
+   ```
+5. In `api-config.js`, point `defaultApiUrl` to your cloud backend URL.
 
 ---
 
-## 🛡️ Security & Privacy
-- **Zero Plaintext Passwords**: Hashed with Argon2id using salt and high memory cost.
-- **Login Rate Limiter**: Maximum 5 attempts per 5 minutes per IP; subsequent attempts receive HTTP `429`.
-- **Protected Endpoints**: All `/api/admin/*` routes strictly verify active database session tokens.
-- **No Public Registration**: Admin accounts can only be provisioned via the secure CLI command.
+## 🛡️ Security & Privacy Guardrails
+
+- **Zero Tracked Credentials**: Sensitive database files (`*.db`, `*.sqlite3`) and environment configs (`.env`) are strictly excluded in `.gitignore` and never committed to version control.
+- **Zero Hardcoded Secrets**: All configuration values use environment variables with secure defaults.
+- **Argon2id Password Storage**: Passwords are cryptographically salted and hashed before persistence.
+- **Cryptographic Session Tokens**: 256-bit entropy random tokens (`secrets.token_urlsafe(32)`).
+- **Protected Endpoints**: All `/api/admin/*` and upload endpoints enforce valid session verification.
 
 ---
 
 ## 📁 Repository Structure
+
 ```
-├── assets/                  # High-resolution & optimized WebP images
-├── server/
-│   ├── main.py              # FastAPI application & route controllers
-│   ├── auth.py              # Argon2id hasher, session store & rate limiter
-│   ├── database.py          # SQLite schema, connection & initial seeding
-│   ├── cli.py               # Administrator provisioning CLI
-│   └── portfolio.db         # Persistent SQLite database
-├── login/
-│   └── index.html           # Monochrome glass login interface
-├── dashboard/
-│   └── index.html           # Protected administrator dashboard
 ├── .github/workflows/
 │   └── deploy.yml           # Automated GitHub Pages CI/CD workflow
-├── index.html               # Public portfolio markup
-├── styles.css               # Design system, glassmorphism & living light tokens
-├── script.js                # GSAP motion engine, luminous typography & lightbox
+├── assets/                  # High-resolution & optimized WebP assets
+│   ├── optimized/           # Compressed WebP showcases & credentials
+│   └── uploads/             # Dynamic user-uploaded pictures (.gitkeep tracked)
+├── server/
+│   ├── main.py              # FastAPI application, CORS & CMS endpoints
+│   ├── auth.py              # Argon2id hashing, sessions & rate limiting
+│   ├── database.py          # SQLite schema, connection & initial data seeding
+│   └── cli.py               # Secure administrative provisioning CLI
+│   # Note: portfolio.db is created at runtime and excluded by .gitignore
+├── login.html               # Monochrome glass login interface
+├── dashboard.html           # Full-stack CMS dashboard with direct picture uploads
+├── index.html               # Public portfolio entrypoint
+├── styles.css               # Design system, glassmorphism tokens & layout
+├── script.js                # GSAP motion choreography, typography & lightbox
 ├── api-config.js            # Unified cross-origin API client
+├── requirements.txt         # Production Python dependencies
 ├── 404.html                 # GitHub Pages SPA fallback router
-├── .env.example             # Configuration settings template
-└── README.md                # Comprehensive documentation
+├── .env.example             # Configuration environment template
+├── .gitignore               # Strict exclusion rules for DB, logs & virtual environments
+└── README.md                # Project documentation & architecture overview
 ```
 
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
