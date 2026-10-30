@@ -1,0 +1,33 @@
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Database & Credentials (CRITICAL: Never commit to public repos)
+*.db
+*.sqlite3
+server/*.db
+server/portfolio.db
+.env
+.env.*
+!.env.example
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Agent, Testing & Log Files
+.agents/
+scratch/
+*.log
+

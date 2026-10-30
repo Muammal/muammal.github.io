@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ==========================================
+       CUSTOMIZE: Page Browser Title & SEO Meta
+       ========================================== -->
+  <title>Muammal | Data Scientist Portfolio</title>
+  <meta name="description"
+    content="Muammal A. Fadhil is a Data Scientist specializing in data-driven AI, robotics, and large language models (LLMs), focused on building intelligent systems that turn data into real-world innovation.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#080808">
+
+  <!-- Theme bootstrap: runs before first paint to prevent flash of wrong theme -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      var theme = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      } catch (e) { /* storage unavailable */ }
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Geist (interface + display) & Geist Mono (technical metadata) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <link rel="preload" as="image" href="assets/optimized/ME.webp" type="image/webp">
+
+  <!-- Custom Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- GSAP motion engine & API configuration -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="api-config.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Ambient living light fields & floating depth elements (decorative) -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__orb ambient__orb--a"></div>
+    <div class="ambient__orb ambient__orb--b"></div>
+    <div class="ambient__orb ambient__orb--cyan"></div>
+    <div class="ambient__orb ambient__orb--violet"></div>
+    <div class="float-glass float-glass--1"></div>
+    <div class="float-glass float-glass--2"></div>
+    <div class="float-geom float-geom--1"></div>
+    <div class="float-geom float-geom--2"></div>
+    <div class="float-geom float-geom--3"></div>
+
+    <!-- Shared GSAP SVG Gradients & Definitions -->
+    <svg class="visually-hidden" width="0" height="0" aria-hidden="true">
+      <defs>
+        <linearGradient id="gsapGradientCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00F0FF" />
+          <stop offset="100%" stop-color="#7000FF" />
+        </linearGradient>
+        <linearGradient id="gsapGradientPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="20%" stop-color="#F7BDF8" />
+          <stop offset="100%" stop-color="#2F3CC0" />
+        </linearGradient>
+        <linearGradient id="gsapGradientPink" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF8709" />
+          <stop offset="100%" stop-color="#F7BDF8" />
+        </linearGradient>
+        <linearGradient id="gsapGradientEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#D1FFBC" />
+          <stop offset="50%" stop-color="#0AE448" />
+          <stop offset="100%" stop-color="#0AA3E4" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Scroll progress hairline -->
+  <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar"></span></div>
+
+  <!-- ==========================================
+       1. FLOATING GLASS NAVIGATION
+       ========================================== -->
+  <header class="site-header" data-anim="nav">
+    <nav class="nav glass" aria-label="Primary">
+      <!-- Desktop Nav Items -->
+      <div class="nav__center">
+        <span class="nav__indicator" aria-hidden="true"></span>
+        <ul class="nav__links" role="list">
+          <li><a href="#about" class="nav__link">About</a></li>
+          <li><a href="#portfolio" class="nav__link">Work</a></li>
+          <li><a href="#experience" class="nav__link">Experience</a></li>
+          <li><a href="#services" class="nav__link">Capabilities</a></li>
+          <li><a href="#certifications" class="nav__link">Certifications</a></li>
+          <li><a href="#contact" class="nav__link">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="nav__actions">
+        <button class="icon-btn theme-toggle" type="button" aria-label="Switch to light theme">
+          <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4" />
+          </svg>
+          <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 14.1A8.5 8.5 0 1 1 9.9 3.5a6.6 6.6 0 0 0 10.6 10.6z" />
+          </svg>
+        </button>
+
+        <!-- Menu toggle for tablet/mobile screens -->
+        <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"
+          aria-controls="mobileMenu">
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==========================================
+       1A. MOBILE NAVIGATION OVERLAY
+       ========================================== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__inner" aria-label="Mobile">
+      <ol class="mobile-menu__list" role="list">
+        <li><a href="#home" class="mobile-menu__link"><span class="mono">00</span>Home</a></li>
+        <li><a href="#about" class="mobile-menu__link"><span class="mono">01</span>About</a></li>
+        <li><a href="#portfolio" class="mobile-menu__link"><span class="mono">02</span>Work</a></li>
+        <li><a href="#experience" class="mobile-menu__link"><span class="mono">03</span>Experience</a></li>
+        <li><a href="#services" class="mobile-menu__link"><span class="mono">04</span>Capabilities</a></li>
+        <li><a href="#certifications" class="mobile-menu__link"><span class="mono">05</span>Certifications</a></li>
+        <li><a href="#contact" class="mobile-menu__link"><span class="mono">06</span>Contact</a></li>
+      </ol>
+
+      <!-- CUSTOMIZE: Socials inside Mobile Overlay -->
+      <ul class="mobile-menu__socials" role="list">
+        <li><a href="https://huggingface.co/Castial" target="_blank" rel="noopener noreferrer">Hugging Face</a></li>
+        <li><a href="https://www.kaggle.com/castial" target="_blank" rel="noopener noreferrer">Kaggle</a></li>
+        <li><a href="https://github.com/Muammal" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/muammal-a-fadhil-54a1b8233/" target="_blank"
+            rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/cas._.tial" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- ==========================================
+         2. HERO
+         ========================================== -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__dots"></div>
+        <div class="hero__dots hero__dots--lit"></div>
+        <div class="hero__glow"></div>
+      </div>
+
+      <!-- GSAP Ambient Decorative Shapes -->
+      <div class="section__shapes" aria-hidden="true">
+        <svg class="ambient-shape ambient-shape--curve hero__shape--curve" viewBox="0 0 191 149" fill="none">
+          <path d="M3 146C116.996 146 74.3933 3.00001 188 3" stroke="url(#gsapGradientCyan)" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="188" cy="3" r="4" fill="#00F0FF" />
+          <circle cx="3" cy="146" r="3" fill="#7000FF" />
+        </svg>
+        <svg class="ambient-shape ambient-shape--diamond hero__shape--diamond" viewBox="0 0 60 60" fill="none">
+          <path d="M27.1716 1.82843C28.7337 0.266333 31.2663 0.26633 32.8284 1.82843L58.1716 27.1716C59.7337 28.7337 59.7337 31.2663 58.1716 32.8284L32.8284 58.1716C31.2663 59.7337 28.7337 59.7337 27.1716 58.1716L1.82843 32.8284C0.266333 31.2663 0.26633 28.7337 1.82843 27.1716L27.1716 1.82843Z" fill="url(#gsapGradientPurple)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <!-- Main Hero Headline with GSAP kinetic flair -->
+          <h1 class="hero__title" id="hero-title">
+            <span class="line"><span class="line__inner">Muammal</span></span>
+            <span class="line"><span class="line__inner">A. Fadhil <span class="hero__flair hero__flair--asterisk" aria-hidden="true"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg></span></span></span>
+          </h1>
+
+          <p class="hero__roles" data-anim="intro">
+            <span>Data Scientist</span>
+            <span class="hero__roles-sep" aria-hidden="true"></span>
+            <span>ML Developer</span>
+          </p>
+
+          <!-- CUSTOMIZE: Brief tagline description -->
+          <p class="hero__description" data-anim="intro">
+            I’m a Data Scientist and Bachelor’s student in Artificial Intelligence and Robotics,
+            driven by a curiosity of how machines learn, reason, and occasionally surprise us.
+            I enjoy working at the intersection of theory and application,
+            where math meets code and ideas turn into systems that actually work.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#portfolio" class="btn btn--primary" data-anim="cta">
+              <span>Explore work</span>
+              <svg class="btn__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </a>
+            <a href="#contact" class="btn btn--glass" data-anim="cta">
+              <span>Get in touch</span>
+              <svg class="btn__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Glass Metadata Panel positioned cleanly below actions -->
+          <div class="hero__meta glass glass--subtle" data-anim="meta">
+            <dl class="meta-list">
+              <div class="meta-list__row">
+                <dt>Based in</dt>
+                <dd>Baghdad, Iraq</dd>
+              </div>
+              <div class="meta-list__row">
+                <dt>Studying</dt>
+                <dd>Bachelor’s, AI &amp; Robotics</dd>
+              </div>
+              <div class="meta-list__row">
+                <dt>Focus</dt>
+                <dd>LLMs · Agentic AI · Robotics</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Hero Footer Links neatly anchored on bottom-left -->
+          <div class="hero__footer-row" data-anim="intro">
+            <a href="#about" class="scroll-cue" aria-label="Scroll down to the About section">
+              <span class="scroll-cue__track" aria-hidden="true"><span class="scroll-cue__thumb"></span></span>
+              <span class="mono">Scroll</span>
+            </a>
+
+            <!-- CUSTOMIZE: Social Profiles (social platform URLs) -->
+            <ul class="hero__socials" role="list" aria-label="Social profiles">
+              <li><a class="link-u" href="https://huggingface.co/Castial" target="_blank" rel="noopener noreferrer">Hugging Face</a></li>
+              <li><a class="link-u" href="https://www.kaggle.com/castial" target="_blank" rel="noopener noreferrer">Kaggle</a></li>
+              <li><a class="link-u" href="https://github.com/Muammal" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a class="link-u" href="https://www.linkedin.com/in/muammal-a-fadhil-54a1b8233/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Backgroundless Personal Portrait (no box, pure cutout, bottom starts at layout divider) -->
+        <div class="hero__visual" data-anim="portrait">
+          <!-- GSAP Kinetic Technical Elements emerging outward from the portrait/drone (NO LIGHTINGS) -->
+          <div class="hero__burst" aria-hidden="true">
+            <!-- 1. GSAP Curly Brace + Core Philosophy (top-left) -->
+            <div class="hero__burst-item burst-item--badge burst-item--tl" data-x="-280" data-y="-250">
+              <svg class="burst-item__svg" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M7 3C5.5 3 4 4.5 4 6v2c0 1.5-1.5 2-2 2 0.5 0 2 0.5 2 2v2c0 1.5 1.5 3 3 3M13 3c1.5 0 3 1.5 3 3v2c0 1.5 1.5 2 2 2-0.5 0-2 0.5-2 2v2c0 1.5-1.5 3-3 3"/>
+              </svg>
+              <span class="burst-item__label">Where Math Meets Code</span>
+            </div>
+
+            <!-- 2. GSAP Kinetic Asterisk + Autonomous Systems (top-right) -->
+            <div class="hero__burst-item burst-item--tag burst-item--tr" data-x="230" data-y="-240">
+              <svg class="burst-item__svg burst-item__svg--star" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/>
+              </svg>
+              <span class="burst-item__label">Autonomous Systems</span>
+            </div>
+
+            <!-- 3. Kinetic Robotics Coordinate Geometry (mid-left near hardware) -->
+            <div class="hero__burst-item burst-item--geo burst-item--ml" data-x="-280" data-y="-20">
+              <svg class="burst-item__svg" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="10" cy="10" r="7"/>
+                <path d="M10 3v4M10 13v4M3 10h4M13 10h4"/>
+              </svg>
+              <span class="burst-item__label">Robotics &amp; Control</span>
+            </div>
+
+            <!-- 4. GSAP Dimensional Diamond + Machine Reasoning (mid-right) -->
+            <div class="hero__burst-item burst-item--token burst-item--mr" data-x="230" data-y="-30">
+              <svg class="burst-item__svg burst-item__svg--diamond" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+                <path d="M10 2l7 8-7 8-7-8z"/>
+              </svg>
+              <span class="burst-item__label">Machine Reasoning</span>
+            </div>
+
+            <!-- 5. GSAP Hexagon Tensor + Embodied Intelligence (lower-left near drone frame) -->
+            <div class="hero__burst-item burst-item--badge burst-item--bl" data-x="-240" data-y="130">
+              <svg class="burst-item__svg" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+                <path d="M10 2l6 3.5v7L10 16l-6-3.5v-7z"/>
+              </svg>
+              <span class="burst-item__label">Embodied Intelligence</span>
+            </div>
+          </div>
+
+          <picture>
+            <source srcset="assets/optimized/ME.webp" type="image/webp">
+            <img src="assets/ME.png"
+              alt="Portrait of Muammal A. Fadhil holding a quadcopter drone frame"
+              class="hero__cutout"
+              width="853" height="1130"
+              fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         3. ABOUT
+         ========================================== -->
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <!-- GSAP Ambient Decorative Shapes -->
+      <div class="section__shapes" aria-hidden="true">
+        <svg class="ambient-shape ambient-shape--brace about__shape--brace-l" viewBox="0 0 27 78" fill="none">
+          <path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--brace about__shape--brace-r" viewBox="0 0 27 78" fill="none">
+          <path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--timer about__shape--timer" viewBox="0 0 52 62" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M29.2532 28.1943C27.7212 29.751 27.7212 32.249 29.2532 33.8057L50.3023 55.1943C52.7911 57.7232 50.9996 62 47.4513 62H26H4.54865C1.00044 62 -0.79113 57.7232 1.69768 55.1943L22.7468 33.8057C24.2788 32.249 24.2788 29.7511 22.7468 28.1943L1.69769 6.80572C-0.791119 4.27676 1.00044 5.24575e-07 4.54865 8.34769e-07L26 2.71011e-06L47.4514 4.58544e-06C50.9996 4.89564e-06 52.7911 4.27676 50.3023 6.80572L29.2532 28.1943Z" fill="url(#gsapGradientEmerald)"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--flower about__shape--flower" viewBox="0 0 248 248" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M62 124C27.7583 124 0 151.758 0 186C0 220.242 27.7583 248 62 248C96.2417 248 124 220.242 124 186C124 220.242 151.758 248 186 248C220.242 248 248 220.242 248 186C248 151.758 220.242 124 186 124C220.242 124 248 96.2417 248 62C248 27.7583 220.242 0 186 0C151.758 0 124 27.7583 124 62C124 27.7583 96.2417 0 62 0C27.7583 0 0 27.7583 0 62C0 96.2417 27.7583 124 62 124Z" fill="url(#gsapGradientPurple)"/>
+        </svg>
+      </div>
+      <div class="container about__grid">
+        <div class="about__intro">
+          <div class="section-subtitle" data-subtitle>
+            <div class="subtitle__brace subtitle__brace--left" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+            <p class="eyebrow"><span class="eyebrow__index">01</span>About Me</p>
+            <div class="subtitle__brace subtitle__brace--right" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+          </div>
+          <!-- CUSTOMIZE: Modify about headline below -->
+          <h2 class="display-2 about__headline" id="about-title" data-gsap-scrub-text>
+            I've been working on <span class="home-intro__highlight home-intro__highlight--cyan"><span>LLM powered Projects</span><div class="home-intro__flair-wrapper" aria-hidden="true"><svg class="home-intro__flair" viewBox="0 0 24 24" fill="none"><path d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10L12 0Z" fill="url(#gsapGradientCyan)"/></svg></div></span> in <span class="home-intro__highlight home-intro__highlight--emerald"><span>Agentic AI</span></span>, and translating <span class="home-intro__highlight home-intro__highlight--purple"><span>Raw Data into Stories</span></span> with Machine Learning.
+          </h2>
+        </div>
+
+        <div class="about__body">
+          <p class="lead" data-reveal>
+            Focused on building intelligent AI systems, scalable robotics solutions,
+            and accessible LLM applications, transforming complex data into simple,
+            impactful experiences that solve real-world problems.
+          </p>
+          <p class="body-text" data-reveal>
+            I seek to make data a language everyone can understand through simplicity,
+            clarity, and intelligent design, building accessible AI systems that empower people,
+            solve real-world problems, and bring advanced technology closer to everyday life.
+          </p>
+          <p class="body-text" data-reveal>
+            I'm Muammal, a typical 19-year-old interested in making change.
+            I love reading, gaming, and networking.
+          </p>
+
+          <!-- CUSTOMIZE: Set data-target (and the visible number) to your real figures -->
+          <dl class="stats" data-reveal>
+            <div class="stat">
+              <dt class="stat__label">Years of Experience</dt>
+              <dd class="stat__number"><span data-count="2">2</span></dd>
+            </div>
+            <div class="stat">
+              <dt class="stat__label">Projects Completed</dt>
+              <dd class="stat__number"><span data-count="5">5</span></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         4. SELECTED WORK
+         ========================================== -->
+    <section class="section work" id="portfolio" aria-labelledby="work-title">
+      <!-- GSAP Ambient Decorative Shapes -->
+      <div class="section__shapes" aria-hidden="true">
+        <svg class="ambient-shape ambient-shape--asterisk work__shape--asterisk" viewBox="0 0 124 124" fill="none">
+          <path fill="url(#gsapGradientCyan)" fill-rule="evenodd" d="m43.184 54.206-35.557.137a7.656 7.656 0 0 0 0 15.313l35.557.138-25.045 25.24a7.657 7.657 0 0 0 10.828 10.827l25.24-25.045.136 35.557a7.657 7.657 0 0 0 15.313 0l.138-35.557 25.24 25.045a7.656 7.656 0 0 0 10.827-10.828l-25.045-25.24 35.557-.137a7.657 7.657 0 0 0 0-15.313l-35.557-.137 25.045-25.24a7.657 7.657 0 0 0-10.828-10.828l-25.24 25.046-.137-35.557a7.657 7.657 0 0 0-15.313 0l-.137 35.557-25.24-25.045a7.657 7.657 0 0 0-10.828 10.828l25.046 25.24Z" clip-rule="evenodd"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--curve work__shape--curve" viewBox="0 0 191 149" fill="none">
+          <path d="M3 146C116.996 146 74.3933 3.00001 188 3" stroke="url(#gsapGradientEmerald)" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="188" cy="3" r="4" fill="#0AE448" />
+        </svg>
+        <svg class="ambient-shape ambient-shape--diamond work__shape--diamond" viewBox="0 0 60 60" fill="none">
+          <path d="M27.1716 1.82843C28.7337 0.266333 31.2663 0.26633 32.8284 1.82843L58.1716 27.1716C59.7337 28.7337 59.7337 31.2663 58.1716 32.8284L32.8284 58.1716C31.2663 59.7337 28.7337 59.7337 27.1716 58.1716L1.82843 32.8284C0.266333 31.2663 0.26633 28.7337 1.82843 27.1716L27.1716 1.82843Z" fill="url(#gsapGradientPink)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--orbit work__shape--orbit" viewBox="0 0 192 190" fill="none">
+          <circle cx="96" cy="95" r="90" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3 6"/>
+          <path fill="url(#gsapGradientCyan)" fill-rule="evenodd" d="M95.54 5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM31.112 31.433a2.5 2.5 0 1 0-3.224-3.822 2.5 2.5 0 0 0 3.224 3.822Zm127.756.004a2.501 2.501 0 0 1 3.227-3.824 2.502 2.502 0 0 1-3.227 3.824ZM2.5 93a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm186.041 0a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm-29.972 69.81a2.503 2.503 0 0 1 .297-3.525 2.502 2.502 0 0 1 3.227 3.825 2.502 2.502 0 0 1-3.524-.3Zm-127.092.001a2.501 2.501 0 1 0-3.824-3.226 2.501 2.501 0 0 0 3.824 3.226ZM98 187.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="container">
+        <header class="section-head">
+          <div class="section-subtitle" data-subtitle>
+            <div class="subtitle__brace subtitle__brace--left" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+            <p class="eyebrow"><span class="eyebrow__index">02</span>Portfolio</p>
+            <div class="subtitle__brace subtitle__brace--right" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+          </div>
+          <!-- CUSTOMIZE: Portfolio Section Tagline -->
+          <h2 class="display-2 section-head__title" id="work-title" data-reveal>
+            Selected projects crafted with precision, focus, and modern engineering standards.
+          </h2>
+        </header>
+
+        <!-- CUSTOMIZE: Add or remove projects below. Copy an <article class="project"> block. -->
+        <div class="projects">
+
+          <!-- Project 1 -->
+          <article class="project glass spotlight" data-card>
+            <div class="project__media">
+              <button type="button" class="project__media-btn" data-lightbox="project"
+                data-title="Nabu Bookstore Platform"
+                data-badge="Web Application"
+                data-desc="Nabu is an AI-powered bookstore platform that uses large language models (LLMs) and intelligent recommendation systems to help users discover books, explore personalized reading experiences, and find nearby bookstores through smart, data-driven search."
+                data-full="assets/optimized/nabu_showcase.webp"
+                data-fallback="assets/nabu_showcase.png"
+                data-link=""
+                aria-label="Enlarge Nabu Bookstore Platform interface screenshot">
+                <picture>
+                  <source srcset="assets/optimized/nabu_showcase.webp" type="image/webp">
+                  <img src="assets/nabu_showcase.png"
+                    alt="Nabu Bookstore Platform interface showing book search and personalized recommendations"
+                    width="1799" height="1415" loading="lazy" decoding="async">
+                </picture>
+                <span class="project__media-zoom" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                  </svg>
+                  <span>Click to expand</span>
+                </span>
+              </button>
+            </div>
+            <div class="project__body">
+              <div class="project__top">
+                <span class="mono project__index">01 / 02</span>
+                <span class="chip">Web Application</span>
+              </div>
+              <h3 class="project__title">Nabu Bookstore Platform</h3>
+              <p class="project__desc">
+                Nabu is an AI-powered bookstore platform that uses large language models (LLMs) and intelligent
+                recommendation systems to help users discover books,
+                explore personalized reading experiences, and find nearby bookstores through smart, data-driven
+                search.
+              </p>
+              <dl class="facts">
+                <div class="facts__row">
+                  <dt>Built at</dt>
+                  <dd>Fintech Hackathon by Makers | Zain Iraq</dd>
+                </div>
+                <div class="facts__row">
+                  <dt>Result</dt>
+                  <dd>3rd place</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project project--reverse glass spotlight" data-card>
+            <div class="project__media">
+              <button type="button" class="project__media-btn" data-lightbox="project"
+                data-title="AI Mathematics Olympiads 3rd Edition"
+                data-badge="Large Language Model"
+                data-desc="A mathematics-specialized reasoning model built on top of OpenAI GPT-OSS-20B and fine-tuned on approximately 200,000 high-quality mathematical reasoning samples focused on olympiad-style and AIMO-style problem solving."
+                data-full="assets/optimized/AIMO_showcase.webp"
+                data-fallback="assets/AIMO_showcase.png"
+                data-link="https://huggingface.co/Castial/gpt-oss-20b-aimo-bnb-bf16"
+                aria-label="Enlarge AI Mathematics Olympiads model card screenshot">
+                <picture>
+                  <source srcset="assets/optimized/AIMO_showcase.webp" type="image/webp">
+                  <img src="assets/AIMO_showcase.png"
+                    alt="Hugging Face model card for Castial/gpt-oss-20b-aimo-bnb-bf16" width="2559" height="1414"
+                    loading="lazy" decoding="async">
+                </picture>
+                <span class="project__media-zoom" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                  </svg>
+                  <span>Click to expand</span>
+                </span>
+              </button>
+            </div>
+            <div class="project__body">
+              <div class="project__top">
+                <span class="mono project__index">02 / 02</span>
+                <span class="chip">Large Language Model</span>
+              </div>
+              <h3 class="project__title">AI Mathematics Olympiads 3rd Edition</h3>
+              <p class="project__desc">
+                A mathematics-specialized reasoning model built on top of OpenAI GPT-OSS-20B and
+                fine-tuned on approximately 200,000 high-quality mathematical reasoning samples focused on
+                olympiad-style and AIMO-style problem solving.
+              </p>
+              <dl class="facts">
+                <div class="facts__row">
+                  <dt>Base model</dt>
+                  <dd>OpenAI GPT-OSS-20B</dd>
+                </div>
+                <div class="facts__row">
+                  <dt>Training data</dt>
+                  <dd>~200,000 reasoning samples</dd>
+                </div>
+              </dl>
+              <ul class="tags" role="list" aria-label="Technologies">
+                <li class="tag">Python</li>
+                <li class="tag">Transformers</li>
+                <li class="tag">Unsloth</li>
+                <li class="tag">PyTorch</li>
+                <li class="tag">PEFT and LoRA Configs</li>
+              </ul>
+              <a href="https://huggingface.co/Castial/gpt-oss-20b-aimo-bnb-bf16" class="project__link"
+                target="_blank" rel="noopener noreferrer">
+                <span>View project on Hugging Face</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7M8 7h9v9" />
+                </svg>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         5. EXPERIENCE (Editorial timeline)
+         ========================================== -->
+    <section class="section experience" id="experience" aria-labelledby="experience-title">
+      <!-- GSAP Ambient Decorative Shapes -->
+      <div class="section__shapes" aria-hidden="true">
+        <svg class="ambient-shape ambient-shape--curve experience__shape--curve" viewBox="0 0 191 149" fill="none">
+          <path d="M3 146C116.996 146 74.3933 3.00001 188 3" stroke="url(#gsapGradientCyan)" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--timer experience__shape--timer" viewBox="0 0 52 62" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M29.2532 28.1943C27.7212 29.751 27.7212 32.249 29.2532 33.8057L50.3023 55.1943C52.7911 57.7232 50.9996 62 47.4513 62H26H4.54865C1.00044 62 -0.79113 57.7232 1.69768 55.1943L22.7468 33.8057C24.2788 32.249 24.2788 29.7511 22.7468 28.1943L1.69769 6.80572C-0.791119 4.27676 1.00044 5.24575e-07 4.54865 8.34769e-07L26 2.71011e-06L47.4514 4.58544e-06C50.9996 4.89564e-06 52.7911 4.27676 50.3023 6.80572L29.2532 28.1943Z" fill="url(#gsapGradientPurple)"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--brace experience__shape--brace" viewBox="0 0 27 78" fill="none">
+          <path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--diamond experience__shape--diamond" viewBox="0 0 60 60" fill="none">
+          <path d="M27.1716 1.82843C28.7337 0.266333 31.2663 0.26633 32.8284 1.82843L58.1716 27.1716C59.7337 28.7337 59.7337 31.2663 58.1716 32.8284L32.8284 58.1716C31.2663 59.7337 28.7337 59.7337 27.1716 58.1716L1.82843 32.8284C0.266333 31.2663 0.26633 28.7337 1.82843 27.1716L27.1716 1.82843Z" fill="url(#gsapGradientEmerald)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="container experience__container">
+        <header class="section-head experience__head">
+          <div class="section-subtitle" data-subtitle>
+            <div class="subtitle__brace subtitle__brace--left" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+            <p class="eyebrow"><span class="eyebrow__index">03</span>Experience</p>
+            <div class="subtitle__brace subtitle__brace--right" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+          </div>
+          <h2 class="display-2 section-head__title" id="experience-title" data-reveal>
+            The Beginning of my Journey in AI.
+          </h2>
+          <div class="experience__meta-bar" data-reveal>
+            <span class="experience__meta-pill"><span class="badge-dot" aria-hidden="true"></span> 05 Milestones</span>
+            <span class="experience__meta-sep" aria-hidden="true">/</span>
+            <span class="experience__meta-pill">2024 — Present</span>
+            <span class="experience__meta-sep" aria-hidden="true">/</span>
+            <span class="experience__meta-pill">Leadership, Engineering &amp; Education</span>
+          </div>
+        </header>
+
+        <div class="timeline">
+          <div class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></div>
+          <ol class="timeline__list" role="list">
+
+          <!-- Experience 1 -->
+          <li class="entry glass spotlight" data-card>
+            <div class="entry__node" aria-hidden="true">
+              <span class="entry__node-dot"></span>
+              <span class="entry__node-index">01</span>
+            </div>
+            <div class="entry__content">
+              <div class="entry__text">
+                <div class="entry__header">
+                  <span class="mono entry__time"><span class="badge-dot" aria-hidden="true"></span> 2026 — Present</span>
+                </div>
+                <h3 class="entry__role">Founder | Executive Director</h3>
+                <p class="entry__org">AI Developers Festival</p>
+                <p class="entry__desc">
+                  AI DevFest is a community-driven event that brings together developers, researchers, and students
+                  to explore the latest advancements in artificial intelligence. It typically features talks,
+                  workshops, and hands-on sessions covering topics like machine learning, generative AI, and
+                  real-world AI applications, with the goal of sharing knowledge, building skills,
+                  and connecting people working in the AI ecosystem.
+                </p>
+                <ul class="entry__bullets" role="list">
+                  <li>Leading the strategic vision and execution of AI DevFest.</li>
+                  <li>Overseeing program design, scientific workshops, and cross-functional teams to deliver a
+                    high-impact, community-driven artificial intelligence event.</li>
+                </ul>
+                <ul class="tags" role="list" aria-label="Skills">
+                  <li class="tag">Networking</li>
+                  <li class="tag">Tech Leadership</li>
+                  <li class="tag">Community Development</li>
+                  <li class="tag">Technical Training</li>
+                  <li class="tag">Event Management</li>
+                </ul>
+              </div>
+              <div class="entry__media">
+                <picture>
+                  <source srcset="assets/optimized/aidevfest.webp" type="image/webp">
+                  <img src="assets/aidevfest.jpg" alt="AI Developers Festival event" width="1280" height="720"
+                    loading="lazy" decoding="async">
+                </picture>
+              </div>
+            </div>
+          </li>
+
+          <!-- Experience 2 -->
+          <li class="entry glass spotlight" data-card>
+            <div class="entry__node" aria-hidden="true">
+              <span class="entry__node-dot"></span>
+              <span class="entry__node-index">02</span>
+            </div>
+            <div class="entry__content">
+              <div class="entry__text">
+                <div class="entry__header">
+                  <span class="mono entry__time"><span class="badge-dot" aria-hidden="true"></span> October 2025</span>
+                </div>
+                <h3 class="entry__role">Machine Learning Developer</h3>
+                <p class="entry__org">Fintech Hackathon by Makers | Zain Iraq</p>
+                <p class="entry__desc">
+                  At Fintech Hackathon, I worked on building Nabu, an AI-powered bookstore platform that uses LLM-based
+                  recommendations to help users discover books and nearby bookstores in a more personalized and
+                  intelligent way. The project focused on combining financial and user-behavior insights with AI-driven
+                  discovery to create a seamless browsing experience.
+                </p>
+                <ul class="entry__bullets" role="list">
+                  <li>Developed LLM recommendation systems</li>
+                  <li>Secured 3rd place in the Hackathon</li>
+                </ul>
+                <ul class="tags" role="list" aria-label="Technologies">
+                  <li class="tag">PyTorch</li>
+                  <li class="tag">Hugging Face Inference</li>
+                  <li class="tag">Transformers</li>
+                  <li class="tag">Quantizers</li>
+                  <li class="tag">Qwen</li>
+                </ul>
+              </div>
+              <div class="entry__media" style="--pos: 50% 58%;">
+                <picture>
+                  <source srcset="assets/optimized/Fintech.webp" type="image/webp">
+                  <img src="assets/Fintech.jpg" alt="Team Nabu receiving third place on stage at the Fintech Hackathon"
+                    width="960" height="1280" loading="lazy" decoding="async">
+                </picture>
+              </div>
+            </div>
+          </li>
+
+          <!-- Experience 3 -->
+          <li class="entry glass spotlight" data-card>
+            <div class="entry__node" aria-hidden="true">
+              <span class="entry__node-dot"></span>
+              <span class="entry__node-index">03</span>
+            </div>
+            <div class="entry__content">
+              <div class="entry__text">
+                <div class="entry__header">
+                  <span class="mono entry__time"><span class="badge-dot" aria-hidden="true"></span> November 2025</span>
+                </div>
+                <h3 class="entry__role">Machine Learning Developer</h3>
+                <p class="entry__org">GEW AI Hackathon by Makers | Zain Iraq</p>
+                <p class="entry__desc">
+                  At the GEW AI Hackathon, I participated with a project called Flow.ai, an AI gateway designed to
+                  simplify LLM and AI integration for developers and businesses.
+                  The platform provides unified, easy-to-use API access to multiple AI models, enabling faster and more
+                  scalable B2B implementation without dealing with complex infrastructure or model-specific setups.
+                  The project focused on making AI adoption more accessible for companies by acting as a
+                  middleware layer between applications and large language models, streamlining deployment
+                  and experimentation in real-world products.
+                </p>
+                <ul class="entry__bullets" role="list">
+                  <li>Worked on LLM Inference Functions through FastAPI and Transformers Module</li>
+                </ul>
+                <ul class="tags" role="list" aria-label="Technologies">
+                  <li class="tag">PyTorch</li>
+                  <li class="tag">Hugging Face Inference</li>
+                  <li class="tag">Transformers</li>
+                  <li class="tag">Quantizers</li>
+                  <li class="tag">Ollama | Qwen | Gpt-oss</li>
+                </ul>
+              </div>
+              <div class="entry__media">
+                <picture>
+                  <source srcset="assets/optimized/GEW.webp" type="image/webp">
+                  <img src="assets/GEW.jpg" alt="GEW AI Hackathon event" width="1280" height="853" loading="lazy"
+                    decoding="async">
+                </picture>
+              </div>
+            </div>
+          </li>
+
+          <!-- Experience 4 -->
+          <li class="entry glass spotlight" data-card>
+            <div class="entry__node" aria-hidden="true">
+              <span class="entry__node-dot"></span>
+              <span class="entry__node-index">04</span>
+            </div>
+            <div class="entry__content">
+              <div class="entry__text">
+                <div class="entry__header">
+                  <span class="mono entry__time"><span class="badge-dot" aria-hidden="true"></span> April 2025</span>
+                </div>
+                <h3 class="entry__role">Python Developer</h3>
+                <p class="entry__org">Super Hackathon by SuperNova | Department of Scientific Affairs</p>
+                <p class="entry__desc">
+                  SuperHackathon is a competitive programming-focused hackathon centered around problem solving,
+                  algorithmic thinking, and LeetCode-style challenges. Participants are tested on their ability to
+                  design efficient solutions under time constraints, tackling problems that span data structures,
+                  algorithms, and logical reasoning. The event emphasizes speed, accuracy,
+                  and clean implementation, simulating real technical interview and coding competition environments.
+                </p>
+                <ul class="entry__bullets" role="list">
+                  <li>Secured the 2nd Place</li>
+                  <li>Solved about 8 to 10 Leetcode Problems in 3 to 4 Hours</li>
+                </ul>
+                <ul class="tags" role="list" aria-label="Skills">
+                  <li class="tag">Python</li>
+                  <li class="tag">Problem Solving</li>
+                  <li class="tag">Leetcode</li>
+                </ul>
+              </div>
+              <div class="entry__media">
+                <picture>
+                  <source srcset="assets/optimized/superhackathon.webp" type="image/webp">
+                  <img src="assets/superhackathon.jpg" alt="Super Hackathon event" width="1280" height="853"
+                    loading="lazy" decoding="async">
+                </picture>
+              </div>
+            </div>
+          </li>
+
+          <!-- Experience 5 -->
+          <li class="entry glass spotlight" data-card>
+            <div class="entry__node" aria-hidden="true">
+              <span class="entry__node-dot"></span>
+              <span class="entry__node-index">05</span>
+            </div>
+            <div class="entry__content">
+              <div class="entry__text">
+                <div class="entry__header">
+                  <span class="mono entry__time"><span class="badge-dot" aria-hidden="true"></span> 2024 — 2025</span>
+                </div>
+                <h3 class="entry__role">Founder</h3>
+                <p class="entry__org">Acceleration</p>
+                <p class="entry__desc">
+                  An innovative Volunteer Team in Iraq, advancing AI software and tech education while aiming to
+                  integrate highly advanced technologies for local and global growth opportunities.
+                </p>
+                <ul class="entry__bullets" role="list">
+                  <li>Spearheaded AI educational content creation and tech literacy programs in Iraq.</li>
+                  <li>Built relationships and fostered developer ecosystems, organizing coding groups and leadership
+                    workshops.</li>
+                </ul>
+                <ul class="tags" role="list" aria-label="Skills">
+                  <li class="tag">AI Research and Writing</li>
+                  <li class="tag">Content Creation</li>
+                  <li class="tag">Networking</li>
+                  <li class="tag">Community Development</li>
+                  <li class="tag">Team Leadership</li>
+                </ul>
+              </div>
+              <div class="entry__media">
+                <picture>
+                  <source srcset="assets/optimized/acceleration.webp" type="image/webp">
+                  <img src="assets/acceleration.jpg" alt="Acceleration volunteer team" width="1280" height="721"
+                    loading="lazy" decoding="async">
+                </picture>
+              </div>
+            </div>
+          </li>
+        </ol>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         6. CAPABILITIES (formerly "What I Do" / Services)
+         ========================================== -->
+    <section class="section capabilities" id="services" aria-labelledby="services-title">
+      <!-- GSAP Ambient Decorative Shapes -->
+      <div class="section__shapes" aria-hidden="true">
+        <svg class="ambient-shape ambient-shape--cutout services__shape--cutout" viewBox="0 0 155 124" fill="none">
+          <path d="M114.577 16.7765C114.176 17.0039 114.012 17.4907 114.19 17.9137C123.826 41.3135 115.82 68.0885 94.5769 80.0841C73.3337 92.0796 46.239 85.1288 31.1434 64.8042C30.8702 64.4357 30.3648 64.322 29.9641 64.5494L0.464816 81.2031C0.00488856 81.4624 -0.140804 82.0629 0.150635 82.4996C25.729 120.911 74.9457 134.708 113.256 113.087C151.567 91.4655 165.096 42.2187 145.351 0.518573C145.123 0.0409342 144.536 -0.141026 144.076 0.118264L114.577 16.7719V16.7765Z" fill="url(#gsapGradientCyan)"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--flower services__shape--flower" viewBox="0 0 248 248" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M62 124C27.7583 124 0 151.758 0 186C0 220.242 27.7583 248 62 248C96.2417 248 124 220.242 124 186C124 220.242 151.758 248 186 248C220.242 248 248 220.242 248 186C248 151.758 220.242 124 186 124C220.242 124 248 96.2417 248 62C248 27.7583 220.242 0 186 0C151.758 0 124 27.7583 124 62C124 27.7583 96.2417 0 62 0C27.7583 0 0 27.7583 0 62C0 96.2417 27.7583 124 62 124Z" fill="url(#gsapGradientPink)"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--diamond services__shape--diamond" viewBox="0 0 60 60" fill="none">
+          <path d="M27.1716 1.82843C28.7337 0.266333 31.2663 0.26633 32.8284 1.82843L58.1716 27.1716C59.7337 28.7337 59.7337 31.2663 58.1716 32.8284L32.8284 58.1716C31.2663 59.7337 28.7337 59.7337 27.1716 58.1716L1.82843 32.8284C0.266333 31.2663 0.26633 28.7337 1.82843 27.1716L27.1716 1.82843Z" fill="url(#gsapGradientPurple)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="container">
+        <header class="section-head">
+          <div class="section-subtitle" data-subtitle>
+            <div class="subtitle__brace subtitle__brace--left" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+            <p class="eyebrow"><span class="eyebrow__index">04</span>What I Do</p>
+            <div class="subtitle__brace subtitle__brace--right" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+          </div>
+          <h2 class="display-2 section-head__title" id="services-title" data-reveal>
+            Building intelligent models and architectures that unlock value.
+          </h2>
+        </header>
+
+        <!-- CUSTOMIZE: Update service descriptions below -->
+        <div class="services">
+          <article class="service glass spotlight" data-reveal>
+            <span class="mono service__index">01</span>
+            <h3 class="service__title">Mathematical Reasoning &amp; Deep Learning</h3>
+            <p class="service__desc">
+              Fine-tuning open weights with PEFT/LoRA and Unsloth for Olympiad-grade mathematical deduction, synthetic reasoning dataset synthesis, and high-accuracy predictive inference.
+            </p>
+          </article>
+
+          <article class="service glass spotlight" data-reveal>
+            <span class="mono service__index">02</span>
+            <h3 class="service__title">Autonomous Agents &amp; Intelligent Systems</h3>
+            <p class="service__desc">
+              Engineering multi-step reasoning chains, deterministic tool-augmented pipelines, and agentic workflows that turn unstructured inputs into verifiable real-world outcomes.
+            </p>
+          </article>
+
+          <article class="service glass spotlight" data-reveal>
+            <span class="mono service__index">03</span>
+            <h3 class="service__title">Robotics &amp; Embodied AI</h3>
+            <p class="service__desc">
+              Developing autonomous robotics architectures, kinematic telemetry bridges, embedded sensor integration, and real-time perception systems that bridge mathematical theory with physical robotic hardware.
+            </p>
+          </article>
+        </div>
+
+        <!-- Toolkit: technologies drawn directly from the projects and roles on this page -->
+        <div class="toolkit" data-reveal>
+          <div class="toolkit__head">
+            <h3 class="toolkit__title">Toolkit</h3>
+            <p class="mono toolkit__note">Used across the projects and roles above</p>
+          </div>
+          <dl class="toolkit__groups">
+            <div class="toolkit__group">
+              <dt>LLM &amp; Reasoning</dt>
+              <dd>
+                <ul role="list">
+                  <li>Transformers</li>
+                  <li>Unsloth</li>
+                  <li>PEFT &amp; LoRA</li>
+                  <li>Quantization</li>
+                  <li>Hugging Face</li>
+                  <li>Ollama</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__group">
+              <dt>Robotics &amp; Control</dt>
+              <dd>
+                <ul role="list">
+                  <li>MAVLink</li>
+                  <li>ROS / ROS 2</li>
+                  <li>PX4 / ArduPilot</li>
+                  <li>Embedded Vision</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__group">
+              <dt>Machine Learning</dt>
+              <dd>
+                <ul role="list">
+                  <li>PyTorch</li>
+                  <li>scikit-learn</li>
+                  <li>NumPy &amp; Pandas</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__group">
+              <dt>Languages &amp; Backend</dt>
+              <dd>
+                <ul role="list">
+                  <li>Python</li>
+                  <li>FastAPI</li>
+                  <li>C++ / Embedded</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="toolkit__group">
+              <dt>Leadership &amp; Community</dt>
+              <dd>
+                <ul role="list">
+                  <li>Technical Leadership</li>
+                  <li>Developer Workshops</li>
+                  <li>Hackathon Mentoring</li>
+                  <li>AI DevFest Speaker</li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         7. CERTIFICATIONS (index list + hover preview + lightbox)
+         ========================================== -->
+    <section class="section certifications" id="certifications" aria-labelledby="certs-title">
+      <!-- GSAP Ambient Decorative Shapes -->
+      <div class="section__shapes" aria-hidden="true">
+        <svg class="ambient-shape ambient-shape--orbit certs__shape--orbit" viewBox="0 0 192 190" fill="none">
+          <circle cx="96" cy="95" r="90" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3 6"/>
+          <path fill="url(#gsapGradientEmerald)" fill-rule="evenodd" d="M95.54 5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM31.112 31.433a2.5 2.5 0 1 0-3.224-3.822 2.5 2.5 0 0 0 3.224 3.822Zm127.756.004a2.501 2.501 0 0 1 3.227-3.824 2.502 2.502 0 0 1-3.227 3.824ZM2.5 93a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm186.041 0a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm-29.972 69.81a2.503 2.503 0 0 1 .297-3.525 2.502 2.502 0 0 1 3.227 3.825 2.502 2.502 0 0 1-3.524-.3Zm-127.092.001a2.501 2.501 0 1 0-3.824-3.226 2.501 2.501 0 0 0 3.824 3.226ZM98 187.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" clip-rule="evenodd"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--windmill certs__shape--windmill" viewBox="0 0 137 135" fill="none">
+          <path d="M84.1148 67.3453H136.194C136.637 67.3453 137 67.7028 137 68.1397V134.043C137 134.484 136.633 134.845 136.186 134.841C99.0222 134.416 68.9737 104.827 68.502 68.2191V134.206C68.502 134.643 68.1392 135 67.6958 135H0.814284C0.366822 135 -2.06673e-05 134.639 0.00401052 134.198C0.439379 97.2879 30.9354 67.5042 68.498 67.5002H0.806238C0.362807 67.5002 0 67.1427 0 66.7057V0.802561C0 0.361644 0.366822 0.000171863 0.814284 0.00414409C37.9778 0.429172 68.0263 30.0183 68.498 66.6263V0.794617C68.498 0.357672 68.8608 0.000171819 69.3042 0.000171819H136.186C136.633 0.000171819 137 0.361644 136.996 0.802561C136.621 32.4969 114.079 58.94 83.9334 65.7802C83.0022 65.9907 83.1594 67.3453 84.1189 67.3453H84.1148Z" fill="url(#gsapGradientCyan)"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--diamond certs__shape--diamond" viewBox="0 0 60 60" fill="none">
+          <path d="M27.1716 1.82843C28.7337 0.266333 31.2663 0.26633 32.8284 1.82843L58.1716 27.1716C59.7337 28.7337 59.7337 31.2663 58.1716 32.8284L32.8284 58.1716C31.2663 59.7337 28.7337 59.7337 27.1716 58.1716L1.82843 32.8284C0.266333 31.2663 0.26633 28.7337 1.82843 27.1716L27.1716 1.82843Z" fill="url(#gsapGradientPurple)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="container">
+        <header class="section-head section-head--split">
+          <div>
+            <div class="section-subtitle" data-subtitle>
+              <div class="subtitle__brace subtitle__brace--left" aria-hidden="true">
+                <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+              </div>
+              <p class="eyebrow"><span class="eyebrow__index">05</span>Certifications</p>
+              <div class="subtitle__brace subtitle__brace--right" aria-hidden="true">
+                <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+              </div>
+            </div>
+            <h2 class="display-2 section-head__title" id="certs-title" data-reveal>
+              Professional Credentials &amp; Badges.
+            </h2>
+          </div>
+          <p class="mono section-head__aside" data-reveal>Select a credential to view the certificate</p>
+        </header>
+
+        <ol class="certs" role="list">
+          <!-- CUSTOMIZE: data-full = large image shown in the viewer -->
+          <li data-reveal>
+            <button class="cert" type="button" data-full="assets/optimized/datacamp1.webp" data-fallback="assets/datacamp1.jpg">
+              <span class="mono cert__index">01</span>
+              <span class="cert__thumb" aria-hidden="true"><img src="assets/optimized/datacamp1.webp" alt="" width="1100" height="630" loading="lazy" decoding="async"></span>
+              <span class="cert__title">Supervised Learning with scikit-learn</span>
+              <span class="cert__org">DataCamp</span>
+              <span class="cert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <button class="cert" type="button" data-full="assets/optimized/IBM.webp" data-fallback="assets/IBM.png">
+              <span class="mono cert__index">02</span>
+              <span class="cert__thumb" aria-hidden="true"><img src="assets/optimized/IBM.webp" alt="" width="1100" height="841" loading="lazy" decoding="async"></span>
+              <span class="cert__title">Machine Learning With Python</span>
+              <span class="cert__org">IBM</span>
+              <span class="cert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <button class="cert" type="button" data-full="assets/optimized/Million.webp" data-fallback="assets/Million.png">
+              <span class="mono cert__index">03</span>
+              <span class="cert__thumb" aria-hidden="true"><img src="assets/optimized/Million.webp" alt="" width="1100" height="782" loading="lazy" decoding="async"></span>
+              <span class="cert__title">One Million Jordanian Coders (Data Analysis Track)</span>
+              <span class="cert__org">Udacity &amp; Jordanian Government</span>
+              <span class="cert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <button class="cert" type="button" data-full="assets/optimized/AiDojo.webp" data-fallback="assets/AiDojo.png">
+              <span class="mono cert__index">04</span>
+              <span class="cert__thumb" aria-hidden="true"><img src="assets/optimized/AiDojo.webp" alt="" width="1100" height="778" loading="lazy" decoding="async"></span>
+              <span class="cert__title">Python Mastering Course</span>
+              <span class="cert__org">Ai Dojo</span>
+              <span class="cert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <button class="cert" type="button" data-full="assets/optimized/Elements.webp" data-fallback="assets/Elements.jpg">
+              <span class="mono cert__index">05</span>
+              <span class="cert__thumb" aria-hidden="true"><img src="assets/optimized/Elements.webp" alt="" width="1100" height="777" loading="lazy" decoding="async"></span>
+              <span class="cert__title">Elements of AI</span>
+              <span class="cert__org">University of Helsinki &amp; MinnaLearn</span>
+              <span class="cert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <button class="cert" type="button" data-full="assets/optimized/TED.webp" data-fallback="assets/TED.png">
+              <span class="mono cert__index">06</span>
+              <span class="cert__thumb" aria-hidden="true"><img src="assets/optimized/TED.webp" alt="" width="1100" height="779" loading="lazy" decoding="async"></span>
+              <span class="cert__title">The Experiment Digital</span>
+              <span class="cert__org">World Learning &amp; U.S. Department of State</span>
+              <span class="cert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg></span>
+            </button>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Certificate Modal Lightbox (Opened strictly on user click/Enter) -->
+    <dialog class="lightbox" id="certDialog" aria-modal="true" aria-labelledby="certDialogTitle">
+      <div class="lightbox__panel glass glass--strong">
+        <div class="lightbox__head">
+          <div>
+            <p class="lightbox__title" id="certDialogTitle"></p>
+            <p class="mono lightbox__org"></p>
+          </div>
+          <button class="icon-btn lightbox__close" type="button" aria-label="Close certificate viewer">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75"
+              stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+        <img class="lightbox__img" alt="">
+      </div>
+    </dialog>
+
+    <!-- Dedicated Project Image Lightbox (activated ONLY on explicit user click) -->
+    <dialog class="lightbox project-lightbox" id="projectLightbox" aria-modal="true" aria-labelledby="projectLightboxTitle">
+      <div class="lightbox__panel glass glass--strong">
+        <div class="lightbox__head">
+          <div class="lightbox__head-meta">
+            <div class="lightbox__top-row">
+              <span class="mono lightbox__counter" id="projectLightboxCounter">01 / 02</span>
+              <span class="chip" id="projectLightboxBadge">Web Application</span>
+            </div>
+            <h3 class="lightbox__title" id="projectLightboxTitle">Project Showcase</h3>
+          </div>
+          <div class="lightbox__head-actions">
+            <a href="#" class="btn btn--glass lightbox__link" id="projectLightboxLink" target="_blank" rel="noopener noreferrer" style="display: none;">
+              <span>Open Project</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            </a>
+            <button class="icon-btn lightbox__close" id="projectLightboxClose" type="button" aria-label="Close project image viewer">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="project-lightbox__view">
+          <button type="button" class="lightbox__nav-btn lightbox__nav-btn--prev" id="projectLightboxPrev" aria-label="Previous project screenshot">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+
+          <div class="project-lightbox__img-wrap">
+            <img class="project-lightbox__img" id="projectLightboxImg" alt="" decoding="async">
+          </div>
+
+          <button type="button" class="lightbox__nav-btn lightbox__nav-btn--next" id="projectLightboxNext" aria-label="Next project screenshot">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="project-lightbox__foot">
+          <p class="project-lightbox__desc" id="projectLightboxDesc"></p>
+          <p class="mono project-lightbox__hint">Use ← / → arrow keys to navigate · Esc to close</p>
+        </div>
+      </div>
+    </dialog>
+
+
+    <!-- ==========================================
+         8. CONTACT
+         ========================================== -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <!-- GSAP Ambient Decorative Shapes -->
+      <div class="section__shapes" aria-hidden="true">
+        <svg class="ambient-shape ambient-shape--curve contact__shape--curve" viewBox="0 0 191 149" fill="none">
+          <path d="M3 146C116.996 146 74.3933 3.00001 188 3" stroke="url(#gsapGradientCyan)" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="188" cy="3" r="5" fill="#00F0FF" />
+          <circle cx="3" cy="146" r="4" fill="#7000FF" />
+        </svg>
+        <svg class="ambient-shape ambient-shape--asterisk contact__shape--asterisk" viewBox="0 0 124 124" fill="none">
+          <path fill="url(#gsapGradientCyan)" fill-rule="evenodd" d="m43.184 54.206-35.557.137a7.656 7.656 0 0 0 0 15.313l35.557.138-25.045 25.24a7.657 7.657 0 0 0 10.828 10.827l25.24-25.045.136 35.557a7.657 7.657 0 0 0 15.313 0l.138-35.557 25.24 25.045a7.656 7.656 0 0 0 10.827-10.828l-25.045-25.24 35.557-.137a7.657 7.657 0 0 0 0-15.313l-35.557-.137 25.045-25.24a7.657 7.657 0 0 0-10.828-10.828l-25.24 25.046-.137-35.557a7.657 7.657 0 0 0-15.313 0l-.137 35.557-25.24-25.045a7.657 7.657 0 0 0-10.828 10.828l25.046 25.24Z" clip-rule="evenodd"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--brace contact__shape--brace" viewBox="0 0 27 78" fill="none">
+          <path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/>
+        </svg>
+        <svg class="ambient-shape ambient-shape--diamond contact__shape--diamond" viewBox="0 0 60 60" fill="none">
+          <path d="M27.1716 1.82843C28.7337 0.266333 31.2663 0.26633 32.8284 1.82843L58.1716 27.1716C59.7337 28.7337 59.7337 31.2663 58.1716 32.8284L32.8284 58.1716C31.2663 59.7337 28.7337 59.7337 27.1716 58.1716L1.82843 32.8284C0.266333 31.2663 0.26633 28.7337 1.82843 27.1716L27.1716 1.82843Z" fill="url(#gsapGradientEmerald)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="container">
+        <div class="contact__head">
+          <div class="section-subtitle" data-subtitle>
+            <div class="subtitle__brace subtitle__brace--left" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+            <p class="eyebrow"><span class="eyebrow__index">06</span>Contact</p>
+            <div class="subtitle__brace subtitle__brace--right" aria-hidden="true">
+              <svg viewBox="0 0 27 78" fill="none"><path fill="currentColor" d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"/></svg>
+            </div>
+          </div>
+          <h2 class="contact__title" id="contact-title">
+            <span class="line"><span class="line__inner">Let's build something</span></span>
+            <span class="line"><span class="line__inner">exceptional together.</span></span>
+          </h2>
+          <p class="lead contact__desc" data-reveal>
+            Looking for a Machine Learning Developer to build custom AI models, architect agentic pipelines, or
+            collaborate on data-driven innovation? Feel free to reach out!
+          </p>
+          <a href="mailto:Cas.dropmail@gmail.com" class="contact__email" data-reveal>
+            <span class="contact__email-text">cas.dropmail@gmail.com</span>
+            <span class="contact__email-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M8 7h9v9" />
+              </svg>
+            </span>
+          </a>
+        </div>
+
+        <div class="contact__grid">
+          <!-- CUSTOMIZE: Update contact particulars below -->
+          <aside class="contact__card glass spotlight" data-reveal aria-label="Contact details">
+            <dl class="contact__details">
+              <div class="contact__row">
+                <dt>Email</dt>
+                <dd><a class="link-u" href="mailto:Cas.dropmail@gmail.com">cas.dropmail@gmail.com</a></dd>
+              </div>
+              <div class="contact__row">
+                <dt>Phone</dt>
+                <dd><a class="link-u" href="tel:+9647725663587">+964 772 566 3587</a></dd>
+              </div>
+              <div class="contact__row">
+                <dt>Location</dt>
+                <dd>Baghdad, Iraq</dd>
+              </div>
+            </dl>
+
+            <ul class="socials" role="list" aria-label="Social profiles">
+              <li><a href="https://huggingface.co/Castial" target="_blank" rel="noopener noreferrer"><span>Hugging
+                    Face</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                    stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M8 7h9v9" />
+                  </svg></a></li>
+              <li><a href="https://www.kaggle.com/castial" target="_blank"
+                  rel="noopener noreferrer"><span>Kaggle</span><svg viewBox="0 0 24 24" width="14" height="14"
+                    fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M8 7h9v9" />
+                  </svg></a></li>
+              <li><a href="https://github.com/Muammal" target="_blank" rel="noopener noreferrer"><span>GitHub</span><svg
+                    viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M8 7h9v9" />
+                  </svg></a></li>
+              <li><a href="https://www.linkedin.com/in/muammal-a-fadhil-54a1b8233/" target="_blank"
+                  rel="noopener noreferrer"><span>LinkedIn</span><svg viewBox="0 0 24 24" width="14" height="14"
+                    fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M8 7h9v9" />
+                  </svg></a></li>
+              <li><a href="https://www.instagram.com/cas._.tial" target="_blank"
+                  rel="noopener noreferrer"><span>Instagram</span><svg viewBox="0 0 24 24" width="14" height="14"
+                    fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M8 7h9v9" />
+                  </svg></a></li>
+            </ul>
+          </aside>
+
+          <!-- Contact form: composes an email in the visitor's mail app (no backend required) -->
+          <form class="contact__form glass" id="portfolioContactForm" data-reveal novalidate>
+            <div class="form__row">
+              <div class="field">
+                <label for="clientName">Name</label>
+                <input type="text" id="clientName" name="name" class="field__input" placeholder="Your name"
+                  autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="clientEmail">Email</label>
+                <input type="email" id="clientEmail" name="email" class="field__input" placeholder="hello@domain.com"
+                  autocomplete="email" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="clientSubject">Subject</label>
+              <input type="text" id="clientSubject" name="subject" class="field__input" placeholder="Project inquiry"
+                required>
+            </div>
+            <div class="field">
+              <label for="clientMessage">Message</label>
+              <textarea id="clientMessage" name="message" class="field__input field__textarea" rows="5"
+                placeholder="Describe your project, timeline, or inquiries..." required></textarea>
+            </div>
+            <div class="form__footer">
+              <button type="submit" class="btn btn--primary">
+                <span>Send message</span>
+                <svg class="btn__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </button>
+              <p class="form__message mono" id="formMessage" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ==========================================
+       9. FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <!-- CUSTOMIZE: Footer Copyright Text -->
+      <p class="footer__copy" id="footerCopyright">
+        &copy; 2026 Muammal A. Fadhil, Best Developer There Is.
+      </p>
+
+      <ul class="footer__links" role="list">
+        <li><a href="#home" class="link-u">Home</a></li>
+        <li><a href="#about" class="link-u">About</a></li>
+        <li><a href="#portfolio" class="link-u">Portfolio</a></li>
+        <li><a href="#contact" class="link-u">Contact</a></li>
+      </ul>
+
+      <a href="#home" class="footer__top mono">
+        Back to top
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 19V5M6 11l6-6 6 6" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+</body>
+
+</html>

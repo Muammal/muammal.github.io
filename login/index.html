@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Muammal Portfolio</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#080808">
+
+  <!-- Google Fonts: Geist & Geist Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../api-config.js"></script>
+
+  <style>
+    .login-viewport {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-5) var(--gutter);
+      position: relative;
+      isolation: isolate;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 26rem;
+      padding: clamp(2rem, 1.5rem + 2vw, 3rem);
+      border-radius: var(--r-xl);
+      display: grid;
+      gap: var(--space-6);
+      box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+    }
+
+    .login-head {
+      display: grid;
+      gap: 0.6rem;
+      text-align: center;
+      justify-items: center;
+    }
+
+    .login-mark {
+      width: 3.25rem;
+      height: 3.25rem;
+      border-radius: 50%;
+      background: var(--fg);
+      color: var(--bg);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-2);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+    }
+
+    .login-title {
+      font-size: 1.75rem;
+      font-weight: 500;
+      letter-spacing: var(--ls-heading);
+      color: var(--fg);
+    }
+
+    .login-subtitle {
+      font-size: var(--fs-sm);
+      color: var(--fg-3);
+    }
+
+    .login-form {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap .field__input {
+      padding-right: 2.75rem;
+    }
+
+    .pw-toggle {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--fg-3);
+      padding: 0.25rem;
+      display: grid;
+      place-items: center;
+      transition: color var(--dur-fast) ease;
+    }
+
+    .pw-toggle:hover {
+      color: var(--fg);
+    }
+
+    .login-alert {
+      display: none;
+      padding: 0.75rem 1rem;
+      border-radius: var(--r-sm);
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      font-size: var(--fs-xs);
+      line-height: 1.45;
+      animation: alert-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes alert-shake {
+      10%, 90% { transform: translate3d(-1px, 0, 0); }
+      20%, 80% { transform: translate3d(2px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+      40%, 60% { transform: translate3d(3px, 0, 0); }
+    }
+
+    .login-footer-links {
+      text-align: center;
+      margin-top: var(--space-4);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(0, 0, 0, 0.25);
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient background lighting -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__orb ambient__orb--a"></div>
+    <div class="ambient__orb ambient__orb--b"></div>
+  </div>
+
+  <div class="login-viewport">
+    <div class="login-card glass glass--strong spotlight">
+      <div class="login-head">
+        <div class="login-mark" aria-hidden="true">MF</div>
+        <h1 class="login-title">Control Access</h1>
+        <p class="login-subtitle">Authenticate to access administrator dashboard</p>
+      </div>
+
+      <div class="login-alert" id="loginAlert" role="alert"></div>
+
+      <form class="login-form" id="loginForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" class="field__input" placeholder="admin" required
+            autocomplete="username" autofocus>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="password" name="password" class="field__input" placeholder="••••••••••••"
+              required autocomplete="current-password">
+            <button type="button" class="pw-toggle" id="pwToggle" aria-label="Toggle password visibility">
+              <svg id="eyeIcon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary" id="loginBtn" style="width: 100%; margin-top: var(--space-2);">
+          <span>Sign In</span>
+          <svg class="btn__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+            stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+      </form>
+
+      <div class="login-footer-links">
+        <a href="../" class="link-u mono" style="font-size: var(--fs-xs);">
+          ← Return to Public Portfolio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const form = document.getElementById('loginForm');
+      const alertBox = document.getElementById('loginAlert');
+      const btn = document.getElementById('loginBtn');
+      const pwInput = document.getElementById('password');
+      const pwToggle = document.getElementById('pwToggle');
+
+      // Check if already authenticated
+      try {
+        const me = await window.API_CONFIG.fetchAPI('/api/auth/me');
+        if (me && me.authenticated) {
+          window.location.href = '../dashboard/';
+          return;
+        }
+      } catch (e) {
+        // Not logged in; stay on login page
+      }
+
+      // Password toggle
+      pwToggle.addEventListener('click', () => {
+        const isPw = pwInput.type === 'password';
+        pwInput.type = isPw ? 'text' : 'password';
+        pwToggle.setAttribute('aria-label', isPw ? 'Hide password' : 'Show password');
+      });
+
+      // Submit handler
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        alertBox.style.display = 'none';
+
+        const username = document.getElementById('username').value.trim();
+        const password = pwInput.value;
+
+        if (!username || !password) {
+          showAlert('Please provide both username and password.');
+          return;
+        }
+
+        btn.disabled = true;
+        const originalBtnHTML = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner"></span> <span>Verifying...</span>';
+
+        try {
+          const res = await window.API_CONFIG.fetchAPI('/api/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ username, password })
+          });
+
+          if (res.success && res.token) {
+            window.API_CONFIG.setToken(res.token);
+            btn.innerHTML = '<span>Authenticated ✓</span>';
+            btn.style.background = '#22c55e';
+            btn.style.color = '#fff';
+
+            setTimeout(() => {
+              window.location.href = '../dashboard/';
+            }, 500);
+          }
+        } catch (err) {
+          showAlert(err.message || 'Authentication failed. Please check credentials.');
+          btn.disabled = false;
+          btn.innerHTML = originalBtnHTML;
+        }
+      });
+
+      function showAlert(msg) {
+        alertBox.textContent = msg;
+        alertBox.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+
+</html>
+

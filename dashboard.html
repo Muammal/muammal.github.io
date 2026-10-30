@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Muammal Portfolio</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#080808">
+
+  <!-- Google Fonts: Geist & Geist Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../api-config.js"></script>
+
+  <style>
+    .dashboard-viewport {
+      min-height: 100vh;
+      padding-bottom: 5rem;
+    }
+
+    .dash-header {
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .dash-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .dash-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .dash-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Tab Navigation */
+    .dash-tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--line);
+      margin: 2rem 0;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .tab-btn {
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--r-md) var(--r-md) 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      background: transparent;
+      color: var(--fg-2);
+      font-size: var(--fs-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--fg);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      color: #00F0FF;
+      background: var(--bg-2);
+      border-color: var(--line-strong);
+      border-bottom: 2px solid #00F0FF;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Panels */
+    .cms-card {
+      padding: 1.75rem;
+      border-radius: var(--r-lg);
+      margin-bottom: var(--space-5);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .cms-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .cms-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cms-form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .cms-label {
+      font-size: var(--fs-xs);
+      font-family: var(--font-mono);
+      color: var(--fg-2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cms-input,
+    .cms-textarea {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      color: var(--fg);
+      font-family: inherit;
+      font-size: var(--fs-sm);
+      transition: border-color 0.2s ease;
+    }
+
+    .cms-input:focus,
+    .cms-textarea:focus {
+      outline: none;
+      border-color: #00F0FF;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    }
+
+    .cms-textarea {
+      min-height: 5.5rem;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .cms-card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .btn-delete {
+      background: rgba(239, 68, 68, 0.15) !important;
+      color: #fca5a5 !important;
+      border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    }
+
+    .btn-delete:hover {
+      background: rgba(239, 68, 68, 0.3) !important;
+    }
+
+    .section-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 100;
+      padding: 0.85rem 1.4rem;
+      border-radius: var(--r-sm);
+      background: #18181b;
+      border: 1px solid var(--line-strong);
+      color: #fff;
+      font-size: var(--fs-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Picture submission & preview controls */
+    .cms-upload-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .cms-upload-row .cms-input {
+      flex: 1;
+    }
+
+    .btn-upload {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+      min-height: 2.45rem;
+      padding: 0 0.95rem;
+      font-size: var(--fs-xs);
+      font-family: inherit;
+      color: #00F0FF;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: var(--r-sm);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .btn-upload:hover {
+      background: rgba(0, 240, 255, 0.18);
+      border-color: #00F0FF;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+
+    .media-preview-box {
+      margin-top: 0.5rem;
+      min-height: 52px;
+      padding: 0.4rem 0.75rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px dashed var(--line);
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .media-thumb {
+      height: 48px;
+      width: 48px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--line-strong);
+      background: #09090b;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient background lighting -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__orb ambient__orb--a"></div>
+    <div class="ambient__orb ambient__orb--b"></div>
+  </div>
+
+  <div class="dashboard-viewport" id="dashboardApp" style="display: none;">
+    <header class="dash-header">
+      <div class="container dash-nav">
+        <div class="dash-brand">
+          <span class="nav__mark" aria-hidden="true">MF</span>
+          <div>
+            <h1 style="font-size: 1rem; font-weight: 500; color: var(--fg);">Control Dashboard</h1>
+            <p class="mono" id="adminUserLabel" style="font-size: 0.65rem;">Logged in as CAS</p>
+          </div>
+        </div>
+
+        <div class="dash-actions">
+          <a href="../" class="btn btn--glass" style="min-height: 2.25rem; font-size: var(--fs-xs);">
+            <span>View Public Site</span>
+          </a>
+          <button type="button" class="btn btn--primary btn-delete" id="logoutBtn"
+            style="min-height: 2.25rem; font-size: var(--fs-xs);">
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Section Tabs -->
+      <nav class="dash-tabs" aria-label="Dashboard Tabs">
+        <button type="button" class="tab-btn active" data-tab="tabProfile">Bio &amp; Profile</button>
+        <button type="button" class="tab-btn" data-tab="tabExperience">Experience</button>
+        <button type="button" class="tab-btn" data-tab="tabSkills">Skills &amp; Capabilities</button>
+        <button type="button" class="tab-btn" data-tab="tabCertifications">Certifications</button>
+        <button type="button" class="tab-btn" data-tab="tabProjects">Projects</button>
+      </nav>
+
+      <!-- TAB 1: BIO & PROFILE -->
+      <section class="tab-panel active" id="tabProfile">
+        <div class="section-header-row">
+          <div>
+            <h2 class="display-2" style="font-size: 1.5rem;">Bio &amp; Identity Settings</h2>
+            <p class="mono" style="margin-top: 0.2rem;">Control hero headline, roles, location, bio, and about section</p>
+          </div>
+          <button type="button" class="btn btn--primary" id="saveProfileBtn">
+            <span>Save Profile Changes</span>
+          </button>
+        </div>
+
+        <div class="cms-card">
+          <form id="profileForm">
+            <div class="cms-form-grid">
+              <div class="cms-form-group">
+                <label class="cms-label" for="profName">Full Name</label>
+                <input class="cms-input" id="profName" type="text" required>
+              </div>
+
+              <div class="cms-form-group">
+                <label class="cms-label" for="profRoles">Roles (comma-separated)</label>
+                <input class="cms-input" id="profRoles" type="text" placeholder="Data Scientist, ML Developer">
+              </div>
+
+              <div class="cms-form-group">
+                <label class="cms-label" for="profBasedIn">Based In</label>
+                <input class="cms-input" id="profBasedIn" type="text" placeholder="Baghdad, Iraq">
+              </div>
+
+              <div class="cms-form-group">
+                <label class="cms-label" for="profStudying">Studying</label>
+                <input class="cms-input" id="profStudying" type="text" placeholder="Bachelor’s, AI & Robotics">
+              </div>
+
+              <div class="cms-form-group">
+                <label class="cms-label" for="profFocus">Focus Domain</label>
+                <input class="cms-input" id="profFocus" type="text" placeholder="LLMs · Agentic AI · Robotics">
+              </div>
+
+              <div class="cms-form-group">
+                <label class="cms-label" for="profEmail">Contact Email</label>
+                <input class="cms-input" id="profEmail" type="email" placeholder="you@domain.com">
+              </div>
+
+              <div class="cms-form-group full-width">
+                <label class="cms-label">Hero Portrait Image</label>
+                <div class="cms-upload-row">
+                  <input class="cms-input" id="profAvatar" value="assets/ME.png" placeholder="assets/ME.png or submit picture">
+                  <label class="btn-upload">
+                    <input type="file" accept="image/*" id="profAvatarFile" style="display:none;" onchange="uploadImageForCard(this, '#profAvatar', '#profAvatarPreview')">
+                    <span>Submit Picture</span>
+                  </label>
+                </div>
+                <div class="media-preview-box" id="profAvatarPreview">
+                  <img src="../assets/ME.png" class="media-thumb" alt="Preview" onerror="this.src='../assets/ME.png'">
+                  <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">assets/ME.png</span>
+                </div>
+              </div>
+
+              <div class="cms-form-group full-width">
+                <label class="cms-label" for="profHeroDesc">Hero Bio Summary</label>
+                <textarea class="cms-textarea" id="profHeroDesc"></textarea>
+              </div>
+
+              <div class="cms-form-group full-width">
+                <label class="cms-label" for="profAboutHeadline">About Section Scrub Headline</label>
+                <textarea class="cms-textarea" id="profAboutHeadline" style="min-height: 4rem;"></textarea>
+              </div>
+
+              <div class="cms-form-group full-width">
+                <label class="cms-label" for="profAboutBody">About Section Supporting Text</label>
+                <textarea class="cms-textarea" id="profAboutBody"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 2: EXPERIENCE -->
+      <section class="tab-panel" id="tabExperience">
+        <div class="section-header-row">
+          <div>
+            <h2 class="display-2" style="font-size: 1.5rem;">Career Milestones &amp; Experience</h2>
+            <p class="mono" style="margin-top: 0.2rem;">Manage chronological timeline entries, hackathons, and roles</p>
+          </div>
+          <button type="button" class="btn btn--primary" id="addExpBtn">
+            <span>+ Add New Milestone</span>
+          </button>
+        </div>
+
+        <div id="experienceContainer">
+          <p class="mono">Loading experiences...</p>
+        </div>
+      </section>
+
+      <!-- TAB 3: SKILLS & CAPABILITIES -->
+      <section class="tab-panel" id="tabSkills">
+        <div class="section-header-row">
+          <div>
+            <h2 class="display-2" style="font-size: 1.5rem;">Capabilities &amp; Technical Toolkit</h2>
+            <p class="mono" style="margin-top: 0.2rem;">Edit core service capabilities and toolkit categories</p>
+          </div>
+          <button type="button" class="btn btn--primary" id="addServiceBtn">
+            <span>+ Add Capability Card</span>
+          </button>
+        </div>
+
+        <h3 style="font-size: 1.15rem; margin-bottom: 1rem; color: var(--fg);">1. Capability Cards (What I Do)</h3>
+        <div id="servicesContainer">
+          <p class="mono">Loading capabilities...</p>
+        </div>
+
+        <div class="section-header-row" style="margin-top: 3rem;">
+          <div>
+            <h3 style="font-size: 1.15rem; color: var(--fg);">2. Toolkit Groups</h3>
+            <p class="mono" style="margin-top: 0.2rem;">Frameworks, models, and technical badges</p>
+          </div>
+          <button type="button" class="btn btn--glass" id="addToolkitBtn">
+            <span>+ Add Toolkit Category</span>
+          </button>
+        </div>
+        <div id="toolkitContainer">
+          <p class="mono">Loading toolkit groups...</p>
+        </div>
+      </section>
+
+      <!-- TAB 4: CERTIFICATIONS -->
+      <section class="tab-panel" id="tabCertifications">
+        <div class="section-header-row">
+          <div>
+            <h2 class="display-2" style="font-size: 1.5rem;">Credentials &amp; Certifications</h2>
+            <p class="mono" style="margin-top: 0.2rem;">Manage credentials, issuers, and lightbox image previews</p>
+          </div>
+          <button type="button" class="btn btn--primary" id="addCertBtn">
+            <span>+ Add Certification</span>
+          </button>
+        </div>
+
+        <div id="certsContainer">
+          <p class="mono">Loading certifications...</p>
+        </div>
+      </section>
+
+      <!-- TAB 5: PROJECTS -->
+      <section class="tab-panel" id="tabProjects">
+        <div class="section-header-row">
+          <div>
+            <h2 class="display-2" style="font-size: 1.5rem;">Portfolio Projects &amp; Case Studies</h2>
+            <p class="mono" style="margin-top: 0.2rem;">Add and edit showcased models, applications, and links</p>
+          </div>
+          <button type="button" class="btn btn--primary" id="addProjectBtn">
+            <span>+ Add New Project</span>
+          </button>
+        </div>
+
+        <div id="projectsContainer">
+          <p class="mono">Loading projects...</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toastMessage"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const app = document.getElementById('dashboardApp');
+      const toast = document.getElementById('toastMessage');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const adminLabel = document.getElementById('adminUserLabel');
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+
+      // 1. Verify Authentication
+      let currentUser = null;
+      try {
+        const authData = await window.API_CONFIG.fetchAPI('/api/auth/me');
+        if (!authData || !authData.authenticated) {
+          throw new Error('Not authenticated');
+        }
+        currentUser = authData.user;
+        adminLabel.textContent = `Logged in as ${currentUser.username}`;
+        app.style.display = 'block';
+      } catch (err) {
+        console.warn('Authentication failed, redirecting to login:', err);
+        window.location.href = './login.html';
+        return;
+      }
+
+      // Logout handler
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          await window.API_CONFIG.fetchAPI('/api/auth/logout', { method: 'POST' });
+        } catch (e) {}
+        window.location.href = './login.html';
+      });
+
+      // Image upload helper for any card / section
+      window.uploadImageForCard = async (fileInput, targetSelector, previewSelector) => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+
+        const container = fileInput.closest('.cms-card') || fileInput.closest('.tab-panel') || document;
+        const targetInput = container.querySelector(targetSelector);
+        const previewEl = container.querySelector(previewSelector);
+        const btnSpan = fileInput.parentElement.querySelector('span');
+        const oldText = btnSpan.textContent;
+
+        btnSpan.textContent = 'Uploading...';
+        showToast('Uploading & optimizing picture...');
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+          const res = await window.API_CONFIG.fetchAPI('/api/admin/upload', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (res && res.success && res.url) {
+            if (targetInput) {
+              targetInput.value = res.url;
+            }
+            if (previewEl) {
+              previewEl.innerHTML = `
+                <img src="../${res.url}" class="media-thumb" alt="Preview">
+                <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">${res.url}</span>
+              `;
+            }
+            showToast('Picture uploaded & optimized successfully!');
+          } else {
+            showToast(res.detail || 'Upload failed');
+          }
+        } catch (err) {
+          showToast(err.message || 'Upload failed');
+        } finally {
+          btnSpan.textContent = oldText;
+          fileInput.value = '';
+        }
+      };
+
+      // Tab Switching Logic
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const panel = document.getElementById(btn.dataset.tab);
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      // =====================================================================
+      // 1. PROFILE CMS
+      // =====================================================================
+      async function loadProfile() {
+        try {
+          const prof = await window.API_CONFIG.fetchAPI('/api/admin/profile');
+          if (!prof) return;
+          document.getElementById('profName').value = prof.name || '';
+          document.getElementById('profRoles').value = (prof.roles || []).join(', ');
+          document.getElementById('profBasedIn').value = prof.based_in || '';
+          document.getElementById('profStudying').value = prof.studying || '';
+          document.getElementById('profFocus').value = prof.focus || '';
+          document.getElementById('profEmail').value = prof.contact_email || '';
+          document.getElementById('profHeroDesc').value = prof.hero_desc || '';
+          document.getElementById('profAboutHeadline').value = prof.about_headline || '';
+          document.getElementById('profAboutBody').value = prof.about_body || '';
+          const avatarVal = prof.avatar_url || 'assets/ME.png';
+          document.getElementById('profAvatar').value = avatarVal;
+          const avatarPrev = document.getElementById('profAvatarPreview');
+          if (avatarPrev) {
+            avatarPrev.innerHTML = `
+              <img src="../${avatarVal}" class="media-thumb" alt="Preview" onerror="this.src='../assets/ME.png'">
+              <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">${avatarVal}</span>
+            `;
+          }
+        } catch (e) {
+          showToast('Error loading profile');
+        }
+      }
+
+      document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+        const payload = {
+          name: document.getElementById('profName').value.trim(),
+          roles: document.getElementById('profRoles').value.split(',').map(s => s.trim()).filter(Boolean),
+          based_in: document.getElementById('profBasedIn').value.trim(),
+          studying: document.getElementById('profStudying').value.trim(),
+          focus: document.getElementById('profFocus').value.trim(),
+          contact_email: document.getElementById('profEmail').value.trim(),
+          hero_desc: document.getElementById('profHeroDesc').value.trim(),
+          about_headline: document.getElementById('profAboutHeadline').value.trim(),
+          about_body: document.getElementById('profAboutBody').value.trim(),
+          avatar_url: document.getElementById('profAvatar').value.trim() || 'assets/ME.png'
+        };
+
+        try {
+          const res = await window.API_CONFIG.fetchAPI('/api/admin/profile', {
+            method: 'PUT',
+            body: JSON.stringify(payload)
+          });
+          showToast(res.message || 'Profile saved successfully!');
+        } catch (e) {
+          showToast('Failed to save profile');
+        }
+      });
+
+      // =====================================================================
+      // 2. EXPERIENCE CMS
+      // =====================================================================
+      const expContainer = document.getElementById('experienceContainer');
+
+      async function loadExperience() {
+        try {
+          const list = await window.API_CONFIG.fetchAPI('/api/admin/experience');
+          if (!list || !list.length) {
+            expContainer.innerHTML = '<p class="mono">No experiences added yet.</p>';
+            return;
+          }
+          expContainer.innerHTML = list.map(exp => `
+            <div class="cms-card" id="exp-${exp.id}">
+              <div class="cms-form-grid">
+                <div class="cms-form-group">
+                  <label class="cms-label">Period / Dates</label>
+                  <input class="cms-input exp-period" value="${exp.period || ''}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Role Title</label>
+                  <input class="cms-input exp-role" value="${exp.role || ''}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Company / Organization</label>
+                  <input class="cms-input exp-company" value="${exp.company || ''}">
+                </div>
+                <div class="cms-form-group full-width">
+                  <label class="cms-label">Milestone Media Picture</label>
+                  <div class="cms-upload-row">
+                    <input class="cms-input exp-media" value="${exp.media_url || ''}" placeholder="assets/uploads/image.webp or submit picture">
+                    <label class="btn-upload">
+                      <input type="file" accept="image/*" class="exp-file" style="display:none;" onchange="uploadImageForCard(this, '.exp-media', '.exp-preview')">
+                      <span>Submit Picture</span>
+                    </label>
+                  </div>
+                  <div class="media-preview-box exp-preview">
+                    ${exp.media_url ? `
+                      <img src="../${exp.media_url}" class="media-thumb" alt="Preview" onerror="this.style.display='none'">
+                      <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">${exp.media_url}</span>
+                    ` : `
+                      <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">No picture submitted</span>
+                    `}
+                  </div>
+                </div>
+                <div class="cms-form-group full-width">
+                  <label class="cms-label">Description</label>
+                  <textarea class="cms-textarea exp-desc">${exp.description || ''}</textarea>
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Key Bullets (one per line)</label>
+                  <textarea class="cms-textarea exp-bullets">${(exp.bullets || []).join('\n')}</textarea>
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Skill Tags (comma-separated)</label>
+                  <input class="cms-input exp-tags" value="${(exp.tags || []).join(', ')}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Display Order</label>
+                  <input class="cms-input exp-order" type="number" value="${exp.display_order || 0}">
+                </div>
+              </div>
+              <div class="cms-card-actions">
+                <button type="button" class="btn btn--glass btn-delete" onclick="deleteExp(${exp.id})">
+                  <span>Delete Milestone</span>
+                </button>
+                <button type="button" class="btn btn--primary" onclick="saveExp(${exp.id})">
+                  <span>Save Milestone</span>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        } catch (e) {
+          expContainer.innerHTML = '<p class="mono">Failed to load experiences.</p>';
+        }
+      }
+
+      window.saveExp = async (id) => {
+        const card = document.getElementById(`exp-${id}`);
+        const payload = {
+          period: card.querySelector('.exp-period').value.trim(),
+          role: card.querySelector('.exp-role').value.trim(),
+          company: card.querySelector('.exp-company').value.trim(),
+          media_url: card.querySelector('.exp-media').value.trim(),
+          description: card.querySelector('.exp-desc').value.trim(),
+          bullets: card.querySelector('.exp-bullets').value.split('\n').map(s => s.trim()).filter(Boolean),
+          tags: card.querySelector('.exp-tags').value.split(',').map(s => s.trim()).filter(Boolean),
+          display_order: parseInt(card.querySelector('.exp-order').value, 10) || 0
+        };
+        try {
+          await window.API_CONFIG.fetchAPI(`/api/admin/experience/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(payload)
+          });
+          showToast('Milestone saved!');
+        } catch (e) {
+          showToast('Failed to save milestone');
+        }
+      };
+
+      window.deleteExp = async (id) => {
+        if (!confirm('Are you sure you want to delete this experience entry?')) return;
+        try {
+          await window.API_CONFIG.fetchAPI(`/api/admin/experience/${id}`, { method: 'DELETE' });
+          showToast('Milestone deleted');
+          loadExperience();
+        } catch (e) {
+          showToast('Failed to delete milestone');
+        }
+      };
+
+      document.getElementById('addExpBtn').addEventListener('click', async () => {
+        try {
+          await window.API_CONFIG.fetchAPI('/api/admin/experience', {
+            method: 'POST',
+            body: JSON.stringify({
+              period: '2026',
+              role: 'New Role Title',
+              company: 'Company / Organization',
+              description: 'Description of role achievements.',
+              bullets: [],
+              tags: ['AI', 'Python'],
+              media_url: '',
+              display_order: 10
+            })
+          });
+          showToast('New milestone added');
+          loadExperience();
+        } catch (e) {
+          showToast('Failed to add milestone');
+        }
+      });
+
+      // =====================================================================
+      // 3. CAPABILITIES & TOOLKIT CMS
+      // =====================================================================
+      const svcContainer = document.getElementById('servicesContainer');
+      const tkContainer = document.getElementById('toolkitContainer');
+
+      async function loadSkills() {
+        try {
+          const svcs = await window.API_CONFIG.fetchAPI('/api/admin/services');
+          svcContainer.innerHTML = (svcs || []).map(svc => `
+            <div class="cms-card" id="svc-${svc.id}">
+              <div class="cms-form-grid">
+                <div class="cms-form-group">
+                  <label class="cms-label">Capability Title</label>
+                  <input class="cms-input svc-title" value="${svc.title || ''}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Display Order</label>
+                  <input class="cms-input svc-order" type="number" value="${svc.display_order || 0}">
+                </div>
+                <div class="cms-form-group full-width">
+                  <label class="cms-label">Description</label>
+                  <textarea class="cms-textarea svc-desc">${svc.description || ''}</textarea>
+                </div>
+              </div>
+              <div class="cms-card-actions">
+                <button type="button" class="btn btn--glass btn-delete" onclick="deleteSvc(${svc.id})">
+                  <span>Delete</span>
+                </button>
+                <button type="button" class="btn btn--primary" onclick="saveSvc(${svc.id})">
+                  <span>Save Capability</span>
+                </button>
+              </div>
+            </div>
+          `).join('');
+
+          const tks = await window.API_CONFIG.fetchAPI('/api/admin/toolkit');
+          tkContainer.innerHTML = (tks || []).map(tk => `
+            <div class="cms-card" id="tk-${tk.id}">
+              <div class="cms-form-grid">
+                <div class="cms-form-group">
+                  <label class="cms-label">Category Name</label>
+                  <input class="cms-input tk-cat" value="${tk.category || ''}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Display Order</label>
+                  <input class="cms-input tk-order" type="number" value="${tk.display_order || 0}">
+                </div>
+                <div class="cms-form-group full-width">
+                  <label class="cms-label">Technologies / Tools (comma-separated)</label>
+                  <input class="cms-input tk-items" value="${(tk.items || []).join(', ')}">
+                </div>
+              </div>
+              <div class="cms-card-actions">
+                <button type="button" class="btn btn--glass btn-delete" onclick="deleteTk(${tk.id})">
+                  <span>Delete Category</span>
+                </button>
+                <button type="button" class="btn btn--primary" onclick="saveTk(${tk.id})">
+                  <span>Save Category</span>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        } catch (e) {
+          showToast('Failed to load skills');
+        }
+      }
+
+      window.saveSvc = async (id) => {
+        const card = document.getElementById(`svc-${id}`);
+        const payload = {
+          title: card.querySelector('.svc-title').value.trim(),
+          display_order: parseInt(card.querySelector('.svc-order').value, 10) || 0,
+          description: card.querySelector('.svc-desc').value.trim()
+        };
+        await window.API_CONFIG.fetchAPI(`/api/admin/services/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+        showToast('Capability saved');
+      };
+
+      window.deleteSvc = async (id) => {
+        if (!confirm('Delete this capability?')) return;
+        await window.API_CONFIG.fetchAPI(`/api/admin/services/${id}`, { method: 'DELETE' });
+        showToast('Capability deleted');
+        loadSkills();
+      };
+
+      document.getElementById('addServiceBtn').addEventListener('click', async () => {
+        await window.API_CONFIG.fetchAPI('/api/admin/services', {
+          method: 'POST',
+          body: JSON.stringify({ title: 'New Capability', description: 'Capability description.', display_order: 10 })
+        });
+        showToast('Added capability');
+        loadSkills();
+      });
+
+      window.saveTk = async (id) => {
+        const card = document.getElementById(`tk-${id}`);
+        const payload = {
+          category: card.querySelector('.tk-cat').value.trim(),
+          display_order: parseInt(card.querySelector('.tk-order').value, 10) || 0,
+          items: card.querySelector('.tk-items').value.split(',').map(s => s.trim()).filter(Boolean)
+        };
+        await window.API_CONFIG.fetchAPI(`/api/admin/toolkit/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+        showToast('Toolkit category saved');
+      };
+
+      window.deleteTk = async (id) => {
+        if (!confirm('Delete this toolkit group?')) return;
+        await window.API_CONFIG.fetchAPI(`/api/admin/toolkit/${id}`, { method: 'DELETE' });
+        showToast('Toolkit category deleted');
+        loadSkills();
+      };
+
+      document.getElementById('addToolkitBtn').addEventListener('click', async () => {
+        await window.API_CONFIG.fetchAPI('/api/admin/toolkit', {
+          method: 'POST',
+          body: JSON.stringify({ category: 'New Category', items: ['Tool 1', 'Tool 2'], display_order: 10 })
+        });
+        showToast('Added toolkit category');
+        loadSkills();
+      });
+
+      // =====================================================================
+      // 4. CERTIFICATIONS CMS
+      // =====================================================================
+      const certsContainer = document.getElementById('certsContainer');
+
+      async function loadCerts() {
+        try {
+          const list = await window.API_CONFIG.fetchAPI('/api/admin/certifications');
+          certsContainer.innerHTML = (list || []).map(cert => `
+            <div class="cms-card" id="cert-${cert.id}">
+              <div class="cms-form-grid">
+                <div class="cms-form-group">
+                  <label class="cms-label">Certificate Title</label>
+                  <input class="cms-input cert-title" value="${cert.title || ''}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Issuing Organization</label>
+                  <input class="cms-input cert-issuer" value="${cert.issuer || ''}">
+                </div>
+                <div class="cms-form-group full-width">
+                  <label class="cms-label">Certificate Full Picture</label>
+                  <div class="cms-upload-row">
+                    <input class="cms-input cert-full" value="${cert.full_image_url || ''}" placeholder="assets/uploads/cert.webp or submit picture">
+                    <label class="btn-upload">
+                      <input type="file" accept="image/*" class="cert-file" style="display:none;" onchange="uploadImageForCard(this, '.cert-full', '.cert-preview')">
+                      <span>Submit Picture</span>
+                    </label>
+                  </div>
+                  <div class="media-preview-box cert-preview">
+                    ${cert.full_image_url ? `
+                      <img src="../${cert.full_image_url}" class="media-thumb" alt="Preview" onerror="this.style.display='none'">
+                      <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">${cert.full_image_url}</span>
+                    ` : `
+                      <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">No picture submitted</span>
+                    `}
+                  </div>
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Fallback Image URL (optional)</label>
+                  <input class="cms-input cert-fallback" value="${cert.fallback_image_url || ''}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Display Order</label>
+                  <input class="cms-input cert-order" type="number" value="${cert.display_order || 0}">
+                </div>
+              </div>
+              <div class="cms-card-actions">
+                <button type="button" class="btn btn--glass btn-delete" onclick="deleteCert(${cert.id})">
+                  <span>Delete</span>
+                </button>
+                <button type="button" class="btn btn--primary" onclick="saveCert(${cert.id})">
+                  <span>Save Certificate</span>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        } catch (e) {
+          showToast('Failed to load certificates');
+        }
+      }
+
+      window.saveCert = async (id) => {
+        const card = document.getElementById(`cert-${id}`);
+        const payload = {
+          title: card.querySelector('.cert-title').value.trim(),
+          issuer: card.querySelector('.cert-issuer').value.trim(),
+          full_image_url: card.querySelector('.cert-full').value.trim(),
+          fallback_image_url: card.querySelector('.cert-fallback').value.trim(),
+          display_order: parseInt(card.querySelector('.cert-order').value, 10) || 0
+        };
+        await window.API_CONFIG.fetchAPI(`/api/admin/certifications/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+        showToast('Certificate saved');
+      };
+
+      window.deleteCert = async (id) => {
+        if (!confirm('Delete this certificate?')) return;
+        await window.API_CONFIG.fetchAPI(`/api/admin/certifications/${id}`, { method: 'DELETE' });
+        showToast('Certificate deleted');
+        loadCerts();
+      };
+
+      document.getElementById('addCertBtn').addEventListener('click', async () => {
+        await window.API_CONFIG.fetchAPI('/api/admin/certifications', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: 'New Certificate',
+            issuer: 'Institution',
+            full_image_url: 'assets/optimized/datacamp1.webp',
+            fallback_image_url: '',
+            display_order: 10
+          })
+        });
+        showToast('Added certificate');
+        loadCerts();
+      });
+
+      // =====================================================================
+      // 5. PROJECTS CMS
+      // =====================================================================
+      const projContainer = document.getElementById('projectsContainer');
+
+      async function loadProjects() {
+        try {
+          const list = await window.API_CONFIG.fetchAPI('/api/admin/projects');
+          projContainer.innerHTML = (list || []).map(p => `
+            <div class="cms-card" id="proj-${p.id}">
+              <div class="cms-form-grid">
+                <div class="cms-form-group">
+                  <label class="cms-label">Project Title</label>
+                  <input class="cms-input proj-title" value="${p.title || ''}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Badge / Category</label>
+                  <input class="cms-input proj-badge" value="${p.badge || ''}">
+                </div>
+                <div class="cms-form-group full-width">
+                  <label class="cms-label">Showcase Picture</label>
+                  <div class="cms-upload-row">
+                    <input class="cms-input proj-img" value="${p.image_url || ''}" placeholder="assets/uploads/project.webp or submit picture">
+                    <label class="btn-upload">
+                      <input type="file" accept="image/*" class="proj-file" style="display:none;" onchange="uploadImageForCard(this, '.proj-img', '.proj-preview')">
+                      <span>Submit Picture</span>
+                    </label>
+                  </div>
+                  <div class="media-preview-box proj-preview">
+                    ${p.image_url ? `
+                      <img src="../${p.image_url}" class="media-thumb" alt="Preview" onerror="this.style.display='none'">
+                      <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">${p.image_url}</span>
+                    ` : `
+                      <span class="mono" style="font-size:0.7rem; color:var(--fg-muted);">No picture submitted</span>
+                    `}
+                  </div>
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Live Link URL</label>
+                  <input class="cms-input proj-link" value="${p.link_url || ''}">
+                </div>
+                <div class="cms-form-group full-width">
+                  <label class="cms-label">Description</label>
+                  <textarea class="cms-textarea proj-desc">${p.description || ''}</textarea>
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Tags (comma-separated)</label>
+                  <input class="cms-input proj-tags" value="${(p.tags || []).join(', ')}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Display Order</label>
+                  <input class="cms-input proj-order" type="number" value="${p.display_order || 0}">
+                </div>
+                <div class="cms-form-group">
+                  <label class="cms-label">Published</label>
+                  <select class="cms-input proj-pub">
+                    <option value="1" ${p.is_published ? 'selected' : ''}>Yes (Public)</option>
+                    <option value="0" ${!p.is_published ? 'selected' : ''}>No (Draft)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="cms-card-actions">
+                <button type="button" class="btn btn--glass btn-delete" onclick="deleteProj(${p.id})">
+                  <span>Delete Project</span>
+                </button>
+                <button type="button" class="btn btn--primary" onclick="saveProj(${p.id})">
+                  <span>Save Project</span>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        } catch (e) {
+          showToast('Failed to load projects');
+        }
+      }
+
+      window.saveProj = async (id) => {
+        const card = document.getElementById(`proj-${id}`);
+        const payload = {
+          title: card.querySelector('.proj-title').value.trim(),
+          badge: card.querySelector('.proj-badge').value.trim(),
+          image_url: card.querySelector('.proj-img').value.trim(),
+          link_url: card.querySelector('.proj-link').value.trim(),
+          description: card.querySelector('.proj-desc').value.trim(),
+          tags: card.querySelector('.proj-tags').value.split(',').map(s => s.trim()).filter(Boolean),
+          display_order: parseInt(card.querySelector('.proj-order').value, 10) || 0,
+          is_published: card.querySelector('.proj-pub').value === '1'
+        };
+        await window.API_CONFIG.fetchAPI(`/api/admin/projects/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+        showToast('Project saved');
+      };
+
+      window.deleteProj = async (id) => {
+        if (!confirm('Delete this project?')) return;
+        await window.API_CONFIG.fetchAPI(`/api/admin/projects/${id}`, { method: 'DELETE' });
+        showToast('Project deleted');
+        loadProjects();
+      };
+
+      document.getElementById('addProjectBtn').addEventListener('click', async () => {
+        const slug = 'project-' + Date.now();
+        await window.API_CONFIG.fetchAPI('/api/admin/projects', {
+          method: 'POST',
+          body: JSON.stringify({
+            slug: slug,
+            title: 'New Showcase Project',
+            badge: 'Machine Learning',
+            image_url: 'assets/optimized/AIMO_showcase.webp',
+            link_url: '',
+            description: 'Detailed description of the model, architecture, and impact.',
+            tags: ['Python', 'PyTorch'],
+            facts_json: [],
+            is_published: true,
+            display_order: 10
+          })
+        });
+        showToast('Added new project');
+        loadProjects();
+      });
+
+      // Initial Load of all panels
+      loadProfile();
+      loadExperience();
+      loadSkills();
+      loadCerts();
+      loadProjects();
+    });
+  </script>
+</body>
+
+</html>

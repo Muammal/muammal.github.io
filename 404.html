@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting — Muammal Portfolio</title>
+  <script>
+    // GitHub Pages SPA router fallback
+    (function () {
+      var path = window.location.pathname;
+      // If path ends with /login or /login/, redirect to login/
+      if (path.indexOf('/login') !== -1) {
+        window.location.replace('/login/');
+        return;
+      }
+      // If path ends with /dashboard or /dashboard/, redirect to dashboard/
+      if (path.indexOf('/dashboard') !== -1) {
+        window.location.replace('/dashboard/');
+        return;
+      }
+      // Otherwise redirect to root
+      window.location.replace('/');
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting to destination...</p>
+</body>
+</html>
+
