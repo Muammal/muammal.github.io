@@ -29,7 +29,9 @@
   }
 
   onReady(() => {
-    initTheme();
+    // Ensure dark theme is enforced
+    docEl.setAttribute('data-theme', 'dark');
+
     initMobileNav();
     initScrollProgress();
     initNavIndicator();
@@ -200,42 +202,6 @@
     } catch (err) {
       console.log('Dynamic content sync skipped (running in offline/static mode):', err);
     }
-  }
-
-  /* ==========================================================================
-     THEME MANAGEMENT
-     ========================================================================== */
-  function initTheme() {
-    const themeBtn = document.querySelector('.theme-toggle');
-    if (!themeBtn) return;
-
-    function setTheme(theme) {
-      docEl.setAttribute('data-theme', theme);
-      try {
-        localStorage.setItem('theme', theme);
-      } catch (e) {
-        /* storage restricted */
-      }
-      themeBtn.setAttribute(
-        'aria-label',
-        theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
-      );
-    }
-
-    themeBtn.addEventListener('click', () => {
-      const current = docEl.getAttribute('data-theme') || 'dark';
-      const target = current === 'dark' ? 'light' : 'dark';
-      setTheme(target);
-    });
-
-    // Listen for OS theme changes if user has not manually set a preference
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      try {
-        if (!localStorage.getItem('theme')) {
-          setTheme(e.matches ? 'dark' : 'light');
-        }
-      } catch (err) {}
-    });
   }
 
   /* ==========================================================================

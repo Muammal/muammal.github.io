@@ -6,7 +6,7 @@
   CUSTOMIZATION GUIDE:
   - All design decisions live in the tokens below (section 1). Change colors, type,
     spacing, radii, glass strength and motion timing there.
-  - Dark theme is the default; the light theme overrides tokens under [data-theme="light"].
+  - Dark theme (permanent): cinematic monochrome glass canvas with organic living light depth.
   - Breakpoints (CSS variables can't be used inside media queries, so they're documented here):
       --bp-lg: 1100px  (desktop nav ↔ compact nav, wide grids)
       --bp-md:  860px  (two-column ↔ stacked layouts)
@@ -93,7 +93,7 @@
   --accent-violet: #9d95ff;
 }
 
-/* Dark theme (default) — deep, cinematic */
+/* Dark theme (permanent) — deep, cinematic */
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
@@ -136,50 +136,6 @@
   --orb-violet: rgba(168, 85, 247, 0.07);
   --grain-opacity: 0.05;
   --img-filter: grayscale(1) contrast(1.06) brightness(0.9);
-}
-
-/* Light theme — bright, editorial */
-[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f4f4f3;
-  --bg-2: #ffffff;
-  --bg-3: #ebebea;
-  --fg: #0d0d0d;
-  --fg-2: #242424;
-  --fg-3: #525252;
-  --line: rgba(0, 0, 0, 0.1);
-  --line-strong: rgba(0, 0, 0, 0.24);
-
-  --glass-bg: rgba(255, 255, 255, 0.58);
-  --glass-bg-strong: rgba(255, 255, 255, 0.74);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-border-hover: rgba(0, 0, 0, 0.18);
-  --glass-sheen: rgba(255, 255, 255, 0.7);
-  --glass-inset: rgba(255, 255, 255, 0.95);
-  --glass-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.22);
-  --glass-fallback: rgba(255, 255, 255, 0.96);
-  --spot: rgba(0, 0, 0, 0.035);
-  --spot-edge: rgba(0, 0, 0, 0.3);
-
-  --nav-bg: rgba(255, 255, 255, 0.55);
-  --nav-bg-scrolled: rgba(255, 255, 255, 0.8);
-  --nav-active: rgba(0, 0, 0, 0.06);
-  --menu-bg: rgba(244, 244, 243, 0.86);
-
-  --btn-bg: #0d0d0d;
-  --btn-fg: #ffffff;
-  --btn-bg-hover: #2a2a2a;
-  --input-bg: rgba(255, 255, 255, 0.7);
-
-  --dot: rgba(0, 0, 0, 0.13);
-  --dot-lit: rgba(0, 0, 0, 0.5);
-  --glow: rgba(255, 255, 255, 0.9);
-  --orb-a: rgba(255, 255, 255, 0.95);
-  --orb-b: rgba(0, 0, 0, 0.035);
-  --orb-cyan: rgba(6, 182, 212, 0.04);
-  --orb-violet: rgba(168, 85, 247, 0.035);
-  --grain-opacity: 0.035;
-  --img-filter: grayscale(1) contrast(1.02);
 }
 
 /* =========================================
@@ -435,16 +391,8 @@ p {
   transform-style: preserve-3d;
 }
 
-html[data-theme="light"] [data-gsap-scrub-text] .scrub-word {
-  color: rgba(17, 17, 17, 0.38);
-}
-
 [data-gsap-scrub-text] .scrub-word.is-illuminated {
   color: #FFFFFF;
-}
-
-html[data-theme="light"] [data-gsap-scrub-text] .scrub-word.is-illuminated {
-  color: #111111;
 }
 
 .home-intro__highlight {
@@ -533,18 +481,9 @@ html[data-theme="light"] [data-gsap-scrub-text] .scrub-word.is-illuminated {
   filter: drop-shadow(0 0 10px rgba(0, 186, 226, 0.4));
 }
 
-[data-theme="light"] .hero__flair--asterisk svg {
-  stroke: #0284c7;
-  filter: none;
-}
-
 /* Restrained accent highlights (no rainbow gradients) */
 .text-accent {
   color: var(--accent-cyan);
-}
-
-[data-theme="light"] .text-accent {
-  color: #0284c7;
 }
 
 /* Clean, crisp typography without rainbow drift */
@@ -1055,23 +994,6 @@ html[data-theme="light"] [data-gsap-scrub-text] .scrub-word.is-illuminated {
   left: 8%;
 }
 
-/* Light mode adjustments */
-[data-theme="light"] .ambient-shape--curve {
-  opacity: 0.28;
-}
-
-[data-theme="light"] .ambient-shape--diamond,
-[data-theme="light"] .ambient-shape--windmill,
-[data-theme="light"] .ambient-shape--timer,
-[data-theme="light"] .ambient-shape--flower,
-[data-theme="light"] .ambient-shape--cutout {
-  opacity: 0.2;
-}
-
-[data-theme="light"] .ambient-shape--asterisk {
-  opacity: 0.3;
-}
-
 /* =========================================
    6. BUTTONS, CHIPS, TAGS
    ========================================= */
@@ -1323,18 +1245,6 @@ html[data-theme="light"] [data-gsap-scrub-text] .scrub-word.is-illuminated {
   display: flex;
   align-items: center;
   gap: 0.15rem;
-}
-
-/* Theme toggle: show the icon of the theme you'll switch to */
-.theme-toggle svg {
-  grid-area: 1 / 1;
-  transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur) var(--ease-out);
-}
-
-[data-theme="dark"] .theme-toggle__moon,
-[data-theme="light"] .theme-toggle__sun {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.6);
 }
 
 /* Menu toggle (two lines → X) */
