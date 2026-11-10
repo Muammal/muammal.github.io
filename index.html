@@ -238,46 +238,47 @@
         <!-- Backgroundless Personal Portrait (no box, pure cutout, bottom starts at layout divider) -->
         <div class="hero__visual" data-anim="portrait">
           <!-- GSAP Kinetic Technical Elements emerging outward from the portrait/drone (NO LIGHTINGS) -->
-          <div class="hero__burst" aria-hidden="true">
-            <!-- 1. GSAP Curly Brace + Core Philosophy (top-left) -->
-            <div class="hero__burst-item burst-item--badge burst-item--tl" data-x="-280" data-y="-250">
-              <svg class="burst-item__svg" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                <path d="M7 3C5.5 3 4 4.5 4 6v2c0 1.5-1.5 2-2 2 0.5 0 2 0.5 2 2v2c0 1.5 1.5 3 3 3M13 3c1.5 0 3 1.5 3 3v2c0 1.5 1.5 2 2 2-0.5 0-2 0.5-2 2v2c0 1.5-1.5 3-3 3"/>
+          <!-- Proof points that burst outward from the portrait: every label is a verifiable fact -->
+          <div class="hero__burst" role="list" aria-label="Highlights">
+            <!-- 1. Published model (top-left) -->
+            <div class="hero__burst-item burst-item--badge burst-item--tl" role="listitem" data-x="-280" data-y="-250" data-sm-x="-60" data-sm-y="-150">
+              <svg class="burst-item__svg" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                <path d="M7 3C5.5 3 4 4.5 4 6v2c0 1.5-1.5 2-2 2 0.5 0 2 0.5 2 2v2c0 1.5 1.5 3 3 3M13 3c1.5 0 3 1.5 3 3v2c0 1.5-1.5 2-2 2-0.5 0-2 0.5-2 2v2c0 1.5-1.5 3-3 3"/>
               </svg>
-              <span class="burst-item__label">Where Math Meets Code</span>
+              <span class="burst-item__label">AIMO 3 · 20B reasoning model</span>
             </div>
 
-            <!-- 2. GSAP Kinetic Asterisk + Autonomous Systems (top-right) -->
-            <div class="hero__burst-item burst-item--tag burst-item--tr" data-x="230" data-y="-240">
-              <svg class="burst-item__svg burst-item__svg--star" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <!-- 2. Hackathon result (top-right) -->
+            <div class="hero__burst-item burst-item--tag burst-item--tr" role="listitem" data-x="220" data-y="-240" data-sm-x="60" data-sm-y="-100">
+              <svg class="burst-item__svg burst-item__svg--star" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
                 <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/>
               </svg>
-              <span class="burst-item__label">Autonomous Systems</span>
+              <span class="burst-item__label">3rd place · Fintech Hackathon</span>
             </div>
 
-            <!-- 3. Kinetic Robotics Coordinate Geometry (mid-left near hardware) -->
-            <div class="hero__burst-item burst-item--geo burst-item--ml" data-x="-280" data-y="-20">
-              <svg class="burst-item__svg" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6">
+            <!-- 3. Leadership (mid-left near hardware) -->
+            <div class="hero__burst-item burst-item--geo burst-item--ml" role="listitem" data-x="-280" data-y="-20" data-sm-x="-60" data-sm-y="-50">
+              <svg class="burst-item__svg" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
                 <circle cx="10" cy="10" r="7"/>
                 <path d="M10 3v4M10 13v4M3 10h4M13 10h4"/>
               </svg>
-              <span class="burst-item__label">Robotics &amp; Control</span>
+              <span class="burst-item__label">Founder · AI DevFest</span>
             </div>
 
-            <!-- 4. GSAP Dimensional Diamond + Machine Reasoning (mid-right) -->
-            <div class="hero__burst-item burst-item--token burst-item--mr" data-x="230" data-y="-30">
-              <svg class="burst-item__svg burst-item__svg--diamond" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <!-- 4. Training scale (mid-right) -->
+            <div class="hero__burst-item burst-item--token burst-item--mr" role="listitem" data-x="220" data-y="-30">
+              <svg class="burst-item__svg burst-item__svg--diamond" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                 <path d="M10 2l7 8-7 8-7-8z"/>
               </svg>
-              <span class="burst-item__label">Machine Reasoning</span>
+              <span class="burst-item__label">~200k training samples</span>
             </div>
 
-            <!-- 5. GSAP Hexagon Tensor + Embodied Intelligence (lower-left near drone frame) -->
-            <div class="hero__burst-item burst-item--badge burst-item--bl" data-x="-240" data-y="130">
-              <svg class="burst-item__svg" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <!-- 5. Second hackathon build (lower-left near drone frame) -->
+            <div class="hero__burst-item burst-item--badge burst-item--bl" role="listitem" data-x="-240" data-y="130">
+              <svg class="burst-item__svg" viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
                 <path d="M10 2l6 3.5v7L10 16l-6-3.5v-7z"/>
               </svg>
-              <span class="burst-item__label">Embodied Intelligence</span>
+              <span class="burst-item__label">Flow.ai · LLM gateway</span>
             </div>
           </div>
 
@@ -346,15 +347,19 @@
             I love reading, gaming, and networking.
           </p>
 
-          <!-- CUSTOMIZE: Set data-target (and the visible number) to your real figures -->
+          <!-- CUSTOMIZE: Verifiable figures only. data-count drives the count-up; the unit sits outside it. -->
           <dl class="stats" data-reveal>
             <div class="stat">
-              <dt class="stat__label">Years of Experience</dt>
-              <dd class="stat__number"><span data-count="2">2</span></dd>
+              <dt class="stat__label">Parameters, AIMO model</dt>
+              <dd class="stat__number"><span data-count="20">20</span><span class="stat__unit">B</span></dd>
             </div>
             <div class="stat">
-              <dt class="stat__label">Projects Completed</dt>
-              <dd class="stat__number"><span data-count="5">5</span></dd>
+              <dt class="stat__label">Reasoning samples trained on</dt>
+              <dd class="stat__number"><span data-count="200">200</span><span class="stat__unit">k</span></dd>
+            </div>
+            <div class="stat">
+              <dt class="stat__label">Place, Fintech Hackathon</dt>
+              <dd class="stat__number"><span data-count="3">3</span><span class="stat__unit">rd</span></dd>
             </div>
           </dl>
         </div>
@@ -396,65 +401,15 @@
           </div>
           <!-- CUSTOMIZE: Portfolio Section Tagline -->
           <h2 class="display-2 section-head__title" id="work-title" data-reveal>
-            Selected projects crafted with precision, focus, and modern engineering standards.
+            From a published 20B reasoning model to a hackathon podium.
           </h2>
         </header>
 
         <!-- CUSTOMIZE: Add or remove projects below. Copy an <article class="project"> block. -->
         <div class="projects">
 
-          <!-- Project 1 -->
+          <!-- Project 1: AIMO (lead project, scroll-lit training pipeline) -->
           <article class="project glass spotlight" data-card>
-            <div class="project__media">
-              <button type="button" class="project__media-btn" data-lightbox="project"
-                data-title="Nabu Bookstore Platform"
-                data-badge="Web Application"
-                data-desc="Nabu is an AI-powered bookstore platform that uses large language models (LLMs) and intelligent recommendation systems to help users discover books, explore personalized reading experiences, and find nearby bookstores through smart, data-driven search."
-                data-full="assets/optimized/nabu_showcase.webp"
-                data-fallback="assets/nabu_showcase.png"
-                data-link=""
-                aria-label="Enlarge Nabu Bookstore Platform interface screenshot">
-                <picture>
-                  <source srcset="assets/optimized/nabu_showcase.webp" type="image/webp">
-                  <img src="assets/nabu_showcase.png"
-                    alt="Nabu Bookstore Platform interface showing book search and personalized recommendations"
-                    width="1799" height="1415" loading="lazy" decoding="async">
-                </picture>
-                <span class="project__media-zoom" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
-                  </svg>
-                  <span>Click to expand</span>
-                </span>
-              </button>
-            </div>
-            <div class="project__body">
-              <div class="project__top">
-                <span class="mono project__index">01 / 02</span>
-                <span class="chip">Web Application</span>
-              </div>
-              <h3 class="project__title">Nabu Bookstore Platform</h3>
-              <p class="project__desc">
-                Nabu is an AI-powered bookstore platform that uses large language models (LLMs) and intelligent
-                recommendation systems to help users discover books,
-                explore personalized reading experiences, and find nearby bookstores through smart, data-driven
-                search.
-              </p>
-              <dl class="facts">
-                <div class="facts__row">
-                  <dt>Built at</dt>
-                  <dd>Fintech Hackathon by Makers | Zain Iraq</dd>
-                </div>
-                <div class="facts__row">
-                  <dt>Result</dt>
-                  <dd>3rd place</dd>
-                </div>
-              </dl>
-            </div>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="project project--reverse glass spotlight" data-card>
             <div class="project__media">
               <button type="button" class="project__media-btn" data-lightbox="project"
                 data-title="AI Mathematics Olympiads 3rd Edition"
@@ -480,25 +435,36 @@
             </div>
             <div class="project__body">
               <div class="project__top">
-                <span class="mono project__index">02 / 02</span>
+                <span class="mono project__index">01 / 03</span>
                 <span class="chip">Large Language Model</span>
               </div>
               <h3 class="project__title">AI Mathematics Olympiads 3rd Edition</h3>
               <p class="project__desc">
-                A mathematics-specialized reasoning model built on top of OpenAI GPT-OSS-20B and
-                fine-tuned on approximately 200,000 high-quality mathematical reasoning samples focused on
-                olympiad-style and AIMO-style problem solving.
+                A mathematics-specialized reasoning model for olympiad-style and AIMO-style problem solving,
+                published openly on Hugging Face.
               </p>
-              <dl class="facts">
-                <div class="facts__row">
-                  <dt>Base model</dt>
-                  <dd>OpenAI GPT-OSS-20B</dd>
-                </div>
-                <div class="facts__row">
-                  <dt>Training data</dt>
-                  <dd>~200,000 reasoning samples</dd>
-                </div>
-              </dl>
+              <ol class="pipeline" aria-label="How the model was built" data-pipeline>
+                <li class="pipeline__step">
+                  <span class="pipeline__dot" aria-hidden="true"></span>
+                  <span class="pipeline__label">Base model</span>
+                  <span class="pipeline__value">OpenAI GPT-OSS-20B</span>
+                </li>
+                <li class="pipeline__step">
+                  <span class="pipeline__dot" aria-hidden="true"></span>
+                  <span class="pipeline__label">Training data</span>
+                  <span class="pipeline__value">~200,000 mathematical reasoning samples</span>
+                </li>
+                <li class="pipeline__step">
+                  <span class="pipeline__dot" aria-hidden="true"></span>
+                  <span class="pipeline__label">Method</span>
+                  <span class="pipeline__value">PEFT / LoRA fine-tune with Unsloth</span>
+                </li>
+                <li class="pipeline__step">
+                  <span class="pipeline__dot" aria-hidden="true"></span>
+                  <span class="pipeline__label">Release</span>
+                  <span class="pipeline__value">Public model card on Hugging Face</span>
+                </li>
+              </ol>
               <ul class="tags" role="list" aria-label="Technologies">
                 <li class="tag">Python</li>
                 <li class="tag">Transformers</li>
@@ -508,12 +474,118 @@
               </ul>
               <a href="https://huggingface.co/Castial/gpt-oss-20b-aimo-bnb-bf16" class="project__link"
                 target="_blank" rel="noopener noreferrer">
-                <span>View project on Hugging Face</span>
+                <span>View the model on Hugging Face</span>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M7 17L17 7M8 7h9v9" />
                 </svg>
               </a>
+            </div>
+          </article>
+
+          <!-- Project 2: Nabu -->
+          <article class="project project--reverse glass spotlight" data-card>
+            <div class="project__media">
+              <button type="button" class="project__media-btn" data-lightbox="project"
+                data-title="Nabu Bookstore Platform"
+                data-badge="Web Application"
+                data-desc="Nabu is an AI-powered bookstore platform that uses large language models (LLMs) and intelligent recommendation systems to help users discover books, explore personalized reading experiences, and find nearby bookstores through smart, data-driven search."
+                data-full="assets/optimized/nabu_showcase.webp"
+                data-fallback="assets/nabu_showcase.png"
+                data-link=""
+                aria-label="Enlarge Nabu Bookstore Platform interface screenshot">
+                <picture>
+                  <source srcset="assets/optimized/nabu_showcase.webp" type="image/webp">
+                  <img src="assets/nabu_showcase.png"
+                    alt="Nabu Bookstore Platform interface showing book search and personalized recommendations"
+                    width="1799" height="1415" loading="lazy" decoding="async">
+                </picture>
+                <span class="project__media-zoom" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                  </svg>
+                  <span>Click to expand</span>
+                </span>
+              </button>
+            </div>
+            <div class="project__body">
+              <div class="project__top">
+                <span class="mono project__index">02 / 03</span>
+                <span class="chip">Web Application</span>
+              </div>
+              <h3 class="project__title">Nabu Bookstore Platform</h3>
+              <p class="project__desc">
+                Nabu is an AI-powered bookstore platform that uses large language models (LLMs) and intelligent
+                recommendation systems to help users discover books,
+                explore personalized reading experiences, and find nearby bookstores through smart, data-driven
+                search.
+              </p>
+              <dl class="facts">
+                <div class="facts__row">
+                  <dt>Built at</dt>
+                  <dd>Fintech Hackathon by Makers | Zain Iraq</dd>
+                </div>
+                <div class="facts__row">
+                  <dt>Result</dt>
+                  <dd>3rd place</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Project 3: Flow.ai -->
+          <article class="project glass spotlight" data-card>
+            <div class="project__media project__media--photo">
+              <button type="button" class="project__media-btn" data-lightbox="project"
+                data-title="Flow.ai LLM Gateway"
+                data-badge="LLM Gateway"
+                data-desc="An AI gateway that gives developers and businesses one unified API to multiple AI models, so teams can integrate and experiment with LLMs without complex infrastructure or model-specific setups. Built at the GEW AI Hackathon."
+                data-full="assets/optimized/GEW.webp"
+                data-fallback="assets/GEW.jpg"
+                data-link=""
+                aria-label="Enlarge photo from the GEW AI Hackathon where Flow.ai was built">
+                <picture>
+                  <source srcset="assets/optimized/GEW.webp" type="image/webp">
+                  <img src="assets/GEW.jpg"
+                    alt="GEW AI Hackathon, where Flow.ai was built" width="1280" height="853"
+                    loading="lazy" decoding="async">
+                </picture>
+                <span class="project__media-zoom" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+                  </svg>
+                  <span>Click to expand</span>
+                </span>
+              </button>
+            </div>
+            <div class="project__body">
+              <div class="project__top">
+                <span class="mono project__index">03 / 03</span>
+                <span class="chip">LLM Gateway</span>
+              </div>
+              <h3 class="project__title">Flow.ai LLM Gateway</h3>
+              <p class="project__desc">
+                An AI gateway that gives developers and businesses one unified API to multiple AI models,
+                so teams can integrate and experiment with LLMs without complex infrastructure or
+                model-specific setups.
+              </p>
+              <dl class="facts">
+                <div class="facts__row">
+                  <dt>Built at</dt>
+                  <dd>GEW AI Hackathon by Makers | Zain Iraq</dd>
+                </div>
+                <div class="facts__row">
+                  <dt>My part</dt>
+                  <dd>LLM inference functions with FastAPI and Transformers</dd>
+                </div>
+              </dl>
+              <ul class="tags" role="list" aria-label="Technologies">
+                <li class="tag">FastAPI</li>
+                <li class="tag">Transformers</li>
+                <li class="tag">PyTorch</li>
+                <li class="tag">Quantizers</li>
+                <li class="tag">Ollama | Qwen | Gpt-oss</li>
+              </ul>
             </div>
           </article>
 
@@ -1106,15 +1178,25 @@
             Looking for a Machine Learning Developer to build custom AI models, architect agentic pipelines, or
             collaborate on data-driven innovation? Feel free to reach out!
           </p>
-          <a href="mailto:Cas.dropmail@gmail.com" class="contact__email" data-reveal>
-            <span class="contact__email-text">cas.dropmail@gmail.com</span>
-            <span class="contact__email-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 17L17 7M8 7h9v9" />
+          <div class="contact__email-row" data-reveal>
+            <a href="mailto:Cas.dropmail@gmail.com" class="contact__email">
+              <span class="contact__email-text">cas.dropmail@gmail.com</span>
+              <span class="contact__email-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7M8 7h9v9" />
+                </svg>
+              </span>
+            </a>
+            <button type="button" class="btn btn--glass contact__copy" data-copy="cas.dropmail@gmail.com"
+              data-copy-label="Copy email" data-copied-label="Email copied">
+              <svg class="contact__copy-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" />
               </svg>
-            </span>
-          </a>
+              <span class="contact__copy-text">Copy email</span>
+            </button>
+          </div>
         </div>
 
         <div class="contact__grid">
@@ -1199,7 +1281,10 @@
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
               </button>
-              <p class="form__message mono" id="formMessage" role="status" aria-live="polite"></p>
+              <button type="button" class="btn btn--glass form__copy" id="formCopy" hidden>
+                <span>Copy message</span>
+              </button>
+              <p class="form__message" id="formMessage" role="status" aria-live="polite"></p>
             </div>
           </form>
         </div>

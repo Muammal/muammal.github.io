@@ -318,6 +318,15 @@ The lab's label plate: a mono uppercase readout with a numeric index trailed by 
 ### Scrubbed Statement (signature)
 Large headline-size statements (`[data-gsap-scrub-text]`) are split into words that start at 35% white. As the visitor scrolls through, they light up to Bench White one by one (ScrollTrigger `scrub: 1`, `ease: "none"`). Highlighted phrases get their own entrances: Signal Cyan with a spinning sparkle, Telemetry Green flipping up from `rotateX: 90`, violet springing in with `elastic.out(1, 0.45)`.
 
+### Proof Labels (signature)
+The pills that burst out of the hero portrait carry **verifiable facts only**: the published model, a placement, a founder role, a training-data figure, a shipped build. They are a real list (`role="list"`, readable by screen readers), not decoration. On screens ≤560px they use hand-placed `data-sm-x` / `data-sm-y` positions, and every label is clamped to stay inside the portrait area.
+
+### Training Pipeline (signature)
+The lead project shows how the work was built as a mini timeline (`.pipeline`): a 1px hairline rail with a Signal Cyan fill, 9px cyan dots, mono labels and sans values. As the card scrolls through the viewport, a scrubbed ScrollTrigger timeline fills the rail and lights each step in turn. This is the Work section's single authored motion moment. The default state is fully lit, so no-JS and reduced-motion visitors see the finished pipeline.
+
+### Copy Actions
+Contact offers a glass "Copy email" button beside the address, and the form shows a "Copy message" fallback if no email app opens. A successful copy swaps the label ("Email copied") and turns the border and icon Signal Cyan for ~2s. A failed copy says so in plain words and stays neutral.
+
 ### Motion Choreography (GSAP)
 Motion follows the official GSAP skills (greensock/gsap-skills: core, timeline, scrolltrigger, performance). The site loads GSAP 3.13 and ScrollTrigger from jsDelivr.
 
@@ -328,7 +337,7 @@ Motion follows the official GSAP skills (greensock/gsap-skills: core, timeline, 
   4. The asterisk flair pops in with `back.out(1.8)`.
   5. The CTAs follow.
   6. The portrait fades in.
-  7. The technical glyphs burst out from the portrait centre to their `data-x` / `data-y` positions (`back.out(1.8)`, at 48% scale on screens ≤860px), then drift forever with `sine.inOut` yoyo loops.
+  7. The proof labels burst out from the portrait centre to their `data-x` / `data-y` positions (`back.out(1.8)`, at 48% scale on screens ≤860px), then drift forever with `sine.inOut` yoyo loops.
 - **Scroll reveals:** `[data-reveal]`, headlines and cards enter from `y: 30–52`, `opacity: 0` (cards also from `scale: 0.96`) at `start: "top 85–88%"`, playing once (`toggleActions: "play none none none"`).
 - **Scrubbed motion:** the hero asterisk rotates 240° and the burst field lifts 50px across the hero's scroll (`scrub: 1`, `ease: "none"`).
 - **Counters:** `[data-count]` stats tick up over 1.8s with `power2.out`.

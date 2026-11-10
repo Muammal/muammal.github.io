@@ -40,6 +40,7 @@
     initProjectLightbox();
     initCertificates();
     initContactForm();
+    initCopyButtons();
     initSmoothScroll();
     initMagneticButtons();
     initDynamicContent();
@@ -759,41 +760,122 @@
   /* ==========================================================================
      CONTACT FORM HANDLING
      ========================================================================== */
+  /* Clipboard helper: async Clipboard API first, legacy execCommand fallback */
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch (err) { /* fall through to the legacy path */ }
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    ta.remove();
+    return ok;
+  }
+
+  function flashButtonLabel(btn, labelEl, text, success, ms = 2200) {
+    const original = btn.dataset.copyLabel || labelEl.textContent;
+    labelEl.textContent = text;
+    btn.classList.toggle('is-copied', success);
+    clearTimeout(btn._copyTimer);
+    btn._copyTimer = setTimeout(() => {
+      labelEl.textContent = original;
+      btn.classList.remove('is-copied');
+    }, ms);
+  }
+
+  /* "Copy email" buttons ([data-copy]) */
+  function initCopyButtons() {
+    document.querySelectorAll('[data-copy]').forEach((btn) => {
+      const labelEl = btn.querySelector('.contact__copy-text') || btn;
+      labelEl.setAttribute('aria-live', 'polite');
+      btn.addEventListener('click', async () => {
+        const ok = await copyText(btn.dataset.copy);
+        flashButtonLabel(btn, labelEl, ok ? (btn.dataset.copiedLabel || 'Copied') : 'Copy blocked: select the address', ok);
+      });
+    });
+  }
+
+  /* Contact form: composes an email in the visitor's mail app. It never clears what they
+     typed, because we can't know whether a mail app actually opened. */
   function initContactForm() {
     const form = document.getElementById('portfolioContactForm');
     const msg = document.getElementById('formMessage');
+    const copyBtn = document.getElementById('formCopy');
     if (!form || !msg) return;
+
+    const recipient = 'Cas.dropmail@gmail.com';
+    const fields = {
+      name: document.getElementById('clientName'),
+      email: document.getElementById('clientEmail'),
+      subject: document.getElementById('clientSubject'),
+      message: document.getElementById('clientMessage')
+    };
+    const fieldNames = { name: 'your name', email: 'your email', message: 'a message' };
+    let composed = '';
+    let fallbackTimer;
+
+    Object.values(fields).forEach((field) => {
+      if (field) field.addEventListener('input', () => field.removeAttribute('aria-invalid'));
+    });
+
+    const listJoin = (items) => items.length > 1
+      ? `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
+      : items[0];
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      clearTimeout(fallbackTimer);
 
-      const name = document.getElementById('clientName')?.value.trim();
-      const email = document.getElementById('clientEmail')?.value.trim();
-      const subject = document.getElementById('clientSubject')?.value.trim();
-      const message = document.getElementById('clientMessage')?.value.trim();
+      const val = (key) => (fields[key] ? fields[key].value.trim() : '');
+      const missing = ['name', 'email', 'message'].filter((key) => !val(key));
+      const badEmail = !!val('email') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'));
 
-      if (!name || !email || !message) {
-        msg.textContent = 'Please complete all required fields.';
-        msg.style.color = 'var(--fg)';
+      Object.keys(fields).forEach((key) => fields[key] && fields[key].removeAttribute('aria-invalid'));
+      missing.forEach((key) => fields[key] && fields[key].setAttribute('aria-invalid', 'true'));
+      if (badEmail && fields.email) fields.email.setAttribute('aria-invalid', 'true');
+
+      if (missing.length || badEmail) {
+        msg.textContent = missing.length
+          ? `Add ${listJoin(missing.map((key) => fieldNames[key]))} so I can reply.`
+          : 'That email address looks incomplete. Check it so I can reply.';
+        const firstInvalid = form.querySelector('[aria-invalid="true"]');
+        if (firstInvalid) firstInvalid.focus();
         return;
       }
 
-      const recipient = 'Cas.dropmail@gmail.com';
-      const mailtoSubject = encodeURIComponent(subject ? `[Portfolio] ${subject}` : `[Portfolio] Inquiry from ${name}`);
-      const mailtoBody = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-      );
+      const name = val('name');
+      const subject = val('subject') ? `[Portfolio] ${val('subject')}` : `[Portfolio] Inquiry from ${name}`;
+      const body = `Name: ${name}\nEmail: ${val('email')}\n\nMessage:\n${val('message')}`;
+      composed = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
 
-      msg.textContent = 'Launching your default email client...';
-      msg.style.color = 'var(--fg)';
+      msg.textContent = 'Opening your email app with your message…';
+      if (copyBtn) copyBtn.hidden = true;
 
-      window.location.href = `mailto:${recipient}?subject=${mailtoSubject}&body=${mailtoBody}`;
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      setTimeout(() => {
-        msg.textContent = 'Thank you! If your client did not open, reach out directly at cas.dropmail@gmail.com';
-        form.reset();
+      fallbackTimer = setTimeout(() => {
+        msg.textContent = 'No email app opened? Copy your message and send it to cas.dropmail@gmail.com from any inbox. Your text is still here.';
+        if (copyBtn) copyBtn.hidden = false;
       }, 2500);
     });
+
+    if (copyBtn) {
+      const copyLabel = copyBtn.querySelector('span') || copyBtn;
+      copyBtn.dataset.copyLabel = copyLabel.textContent;
+      copyBtn.addEventListener('click', async () => {
+        const ok = await copyText(composed);
+        flashButtonLabel(copyBtn, copyLabel, ok ? 'Message copied' : 'Copy blocked: select the text', ok);
+      });
+    }
   }
 
   /* ==========================================================================
@@ -938,11 +1020,27 @@
           rotation: (i) => (i % 2 === 0 ? -12 : 12)
         });
 
+        // Keep every proof label fully inside the portrait area (matters on narrow screens)
+        const burstField = document.querySelector('.hero__burst');
+        const clampX = (el, x) => {
+          if (!burstField) return x;
+          const limit = Math.max(0, burstField.clientWidth / 2 - el.offsetWidth / 2 - 8);
+          return gsap.utils.clamp(-limit, limit, x);
+        };
+
+        // Phones get hand-placed, staggered positions (data-sm-x / data-sm-y) so labels never collide
+        const isNarrow = window.innerWidth <= 560;
+        const burstPos = (el, axis) => {
+          const sm = el.dataset[axis === 'x' ? 'smX' : 'smY'];
+          if (isNarrow && sm !== undefined) return parseFloat(sm) || 0;
+          return (parseFloat(el.dataset[axis]) || 0) * scaleFactor;
+        };
+
         heroTl.to(
           burstItems,
           {
-            x: (i, el) => (parseFloat(el.dataset.x) || 0) * scaleFactor,
-            y: (i, el) => (parseFloat(el.dataset.y) || 0) * scaleFactor,
+            x: (i, el) => clampX(el, burstPos(el, 'x')),
+            y: (i, el) => burstPos(el, 'y'),
             scale: 1,
             opacity: 1,
             rotation: 0,
@@ -1280,6 +1378,36 @@
               }
             );
           }
+        });
+
+        // AIMO training pipeline: the Work section's one authored, scroll-scrubbed moment.
+        // The rail fills and each step lights up as the visitor reads down the card.
+        // Default HTML/CSS state is fully lit, so reduced-motion and no-JS visitors see the final state.
+        document.querySelectorAll('[data-pipeline]').forEach((pipeline) => {
+          const steps = gsap.utils.toArray(pipeline.querySelectorAll('.pipeline__step'));
+          if (!steps.length) return;
+          const rootStyle = getComputedStyle(document.documentElement);
+          const lit = rootStyle.getPropertyValue('--accent-cyan').trim() || '#00bae2';
+          const unlit = rootStyle.getPropertyValue('--bg').trim() || '#080808';
+
+          const pipeTl = gsap.timeline({
+            defaults: { ease: 'none' },
+            scrollTrigger: {
+              trigger: pipeline,
+              start: 'top 85%',
+              end: 'bottom 55%',
+              scrub: 0.6
+            }
+          });
+
+          pipeTl.fromTo(pipeline, { '--fill': 0 }, { '--fill': 1, duration: Math.max(steps.length - 1, 1) }, 0);
+          steps.forEach((step, i) => {
+            const dot = step.querySelector('.pipeline__dot');
+            pipeTl.fromTo(step, { opacity: 0.35 }, { opacity: 1, duration: 0.4 }, i);
+            if (dot) {
+              pipeTl.fromTo(dot, { backgroundColor: unlit, scale: 0.6 }, { backgroundColor: lit, scale: 1, duration: 0.4 }, i);
+            }
+          });
         });
 
         // 2. Experience Category: Meta Bar, Rail Scrub, and Milestone Cards
