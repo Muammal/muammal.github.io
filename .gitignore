@@ -28,6 +28,13 @@ desktop.ini
 
 # Agent, Testing & Log Files
 .agents/
+# Impeccable installer output for other agents (machine-specific paths, large binaries)
+.codex/
+.cursor/
+.gemini/
+.github/agents/
+.github/hooks/
+.github/skills/
 scratch/
 *.log
 

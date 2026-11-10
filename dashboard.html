@@ -84,10 +84,10 @@
     }
 
     .tab-btn.active {
-      color: #00F0FF;
+      color: var(--accent-cyan);
       background: var(--bg-2);
       border-color: var(--line-strong);
-      border-bottom: 2px solid #00F0FF;
+      border-bottom: 2px solid var(--accent-cyan);
     }
 
     .tab-panel {
@@ -156,8 +156,8 @@
     .cms-input:focus,
     .cms-textarea:focus {
       outline: none;
-      border-color: #00F0FF;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 4px var(--line);
     }
 
     .cms-textarea {
@@ -240,18 +240,17 @@
       padding: 0 0.95rem;
       font-size: var(--fs-xs);
       font-family: inherit;
-      color: #00F0FF;
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--accent-cyan);
+      background: rgba(0, 186, 226, 0.08);
+      border: 1px solid rgba(0, 186, 226, 0.3);
       border-radius: var(--r-sm);
       transition: all 0.2s ease;
       user-select: none;
     }
 
     .btn-upload:hover {
-      background: rgba(0, 240, 255, 0.18);
-      border-color: #00F0FF;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+      background: rgba(0, 186, 226, 0.18);
+      border-color: var(--accent-cyan);
     }
 
     .media-preview-box {

@@ -1092,7 +1092,7 @@
           const cyanHighlight = el.querySelector('.home-intro__highlight--cyan');
           if (cyanHighlight) {
             gsap.to(cyanHighlight, {
-              color: '#00F0FF',
+              color: getComputedStyle(document.documentElement).getPropertyValue('--accent-cyan').trim() || '#00bae2',
               ease: 'power3.inOut',
               duration: 0.8,
               scrollTrigger: {
